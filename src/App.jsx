@@ -4,12 +4,16 @@ import GlobalStyle from './styles/globalStyles';
 
 import theme from './styles/theme';
 
+import Container from './layout/Container';
+
 function App() {
   return (
     <div className="App">
       <ThemeProvider theme={theme}>
         <GlobalStyle />
-        <h1>Product invoice app</h1>
+        <Container>
+          <h1>Product invoice app</h1>
+        </Container>
       </ThemeProvider>
     </div>
   );
