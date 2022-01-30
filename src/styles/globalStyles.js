@@ -29,22 +29,22 @@ const GlobalStyle = createGlobalStyle`
     }
 
     h1,.h1 {
-        font-size:24px;
+        font-size:1.5rem;
         letter-spacing:-0.33px;
     }
 
     h2,.h2 {
-        font-size:20px;
+        font-size:1.25rem;
         letter-spacing:-0.25px;
     }
 
     h3,.h3 {
-        font-size:18px;
+        font-size:1.125rem;
         letter-spacing:-0.25px;
     }
 
     h4,.h4 {
-        font-size:14px;
+        font-size:0.875rem;
         letter-spacing:-0.2px;
     }
 
