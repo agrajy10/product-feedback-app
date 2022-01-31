@@ -1,6 +1,7 @@
 import styled from 'styled-components';
 
 import Button from '../Button';
+import TextAreaField from '../TextAreaField';
 
 import breakpoints from '../../styles/breakpoints';
 
@@ -16,24 +17,6 @@ const FormWrapper = styled.form`
     h2 {
       margin-bottom: 32px;
     }
-  }
-`;
-
-const TextArea = styled.textarea`
-  width: 100%;
-  height: 80px;
-  padding: 16px;
-  border-radius: 5px;
-  background-color: ${({ theme }) => theme.textField.bg};
-  color: ${({ theme }) => theme.textField.color};
-  border: 1px solid ${({ theme }) => theme.textField.borderColor};
-  outline: 0;
-  margin-bottom: 16px;
-  &::placeholder {
-    color: #8c92b3;
-  }
-  &:focus {
-    border-color: ${({ theme }) => theme.textField.active.borderColor};
   }
 `;
 
@@ -56,7 +39,7 @@ function CommentForm() {
   return (
     <FormWrapper>
       <h2 className="h3">Add comment</h2>
-      <TextArea
+      <TextAreaField
         aria-label="Enter your comment"
         placeholder="Type your comment here"
         name="comment"
