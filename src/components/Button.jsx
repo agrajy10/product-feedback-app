@@ -19,9 +19,9 @@ const ButtonEl = styled.button`
   }
 `;
 
-function Button({ variant = 'primary', type = 'button', children }) {
+function Button({ className, variant = 'primary', type = 'button', children }) {
   return (
-    <ButtonEl type={type} variant={variant}>
+    <ButtonEl className={className} type={type} variant={variant}>
       {children}
     </ButtonEl>
   );

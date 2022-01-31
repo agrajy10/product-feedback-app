@@ -1,5 +1,7 @@
 import styled from 'styled-components';
 
+import breakpoints from '../styles/breakpoints';
+
 import { ReactComponent as IconArrowUp } from '../assets/shared/icon-arrow-up.svg';
 
 const Button = styled.button`
@@ -35,11 +37,16 @@ const Button = styled.button`
       color: ${({ theme }) => theme.upVoteButton.active.arrow};
     }
   }
+  @media (min-width: ${breakpoints.md}px) {
+    flex-direction: column;
+    gap: 8px;
+    padding: 13px 10px;
+  }
 `;
 
-function UpVoteButton() {
+function UpVoteButton({ className }) {
   return (
-    <Button type="button">
+    <Button className={className} type="button">
       <IconArrowUp />
       112
     </Button>

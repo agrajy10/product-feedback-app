@@ -11,6 +11,17 @@ import useWindowSize from '../hooks/useWindowSize';
 
 import breakpoints from '../styles/breakpoints';
 
+import IconSuggestions from '../assets/suggestions/icon-suggestions.svg';
+
+const HomeContainer = styled(Container)`
+  @media (min-width: ${breakpoints.lg}px) {
+    display: grid;
+    grid-template-columns: 255px 1fr;
+    gap: 0 24px;
+    align-items: flex-start;
+  }
+`;
+
 const SortByWrapper = styled.div`
   display: flex;
   align-items: center;
@@ -18,6 +29,29 @@ const SortByWrapper = styled.div`
   background-color: #373f68;
   margin: 0 -24px;
   padding: 8px 24px;
+  @media (min-width: ${breakpoints.sm}px) {
+    justify-content: flex-start;
+    gap: 38px;
+    margin: 0;
+    padding: 12px 12px 12px 24px;
+    border-radius: 10px;
+  }
+`;
+
+const FeedbackCount = styled.p`
+  margin: 0;
+  padding-left: 35px;
+  background: url(${IconSuggestions}) no-repeat left center;
+  font-size: 18px;
+  font-weight: 700;
+  letter-spacing: -0.25px;
+  color: #ffffff;
+`;
+
+const AddFeedbackButton = styled(Button)`
+  @media (min-width: ${breakpoints.sm}px) {
+    margin-left: auto;
+  }
 `;
 
 const FeedbackListWrapper = styled.div`
@@ -33,20 +67,23 @@ function Home() {
   const pageHeader = width <= breakpoints.sm ? <MobileHeader /> : <Header />;
 
   return (
-    <Container>
+    <HomeContainer>
       {pageHeader}
-      <SortByWrapper>
-        <SortBy />
-        <Button>+ Add Feedback</Button>
-      </SortByWrapper>
-      <FeedbackListWrapper>
-        <FeedbackItem />
-        <FeedbackItem />
-        <FeedbackItem />
-        <FeedbackItem />
-        <FeedbackItem />
-      </FeedbackListWrapper>
-    </Container>
+      <div>
+        <SortByWrapper>
+          {width > breakpoints.md && <FeedbackCount>6 Suggestions</FeedbackCount>}
+          <SortBy />
+          <AddFeedbackButton>+ Add Feedback</AddFeedbackButton>
+        </SortByWrapper>
+        <FeedbackListWrapper>
+          <FeedbackItem />
+          <FeedbackItem />
+          <FeedbackItem />
+          <FeedbackItem />
+          <FeedbackItem />
+        </FeedbackListWrapper>
+      </div>
+    </HomeContainer>
   );
 }
 
