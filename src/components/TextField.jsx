@@ -30,12 +30,12 @@ const Input = styled.input`
   }
 `;
 
-function TextField() {
+function TextField({ label, labelDesc, id }) {
   return (
     <>
-      <Label>Feedback Title</Label>
-      <LabelDesc>Add a short, descriptive headline</LabelDesc>
-      <Input type="text" />
+      {label && <Label htmlFor={id}>{label}</Label>}
+      {labelDesc && <LabelDesc>{labelDesc}</LabelDesc>}
+      <Input id={id} type="text" />
     </>
   );
 }
