@@ -69,7 +69,7 @@ function Home() {
   return (
     <HomeContainer>
       {pageHeader}
-      <div>
+      <main>
         <SortByWrapper>
           {width > breakpoints.md && <FeedbackCount>6 Suggestions</FeedbackCount>}
           <SortBy />
@@ -82,7 +82,7 @@ function Home() {
           <FeedbackItem />
           <FeedbackItem />
         </FeedbackListWrapper>
-      </div>
+      </main>
     </HomeContainer>
   );
 }
