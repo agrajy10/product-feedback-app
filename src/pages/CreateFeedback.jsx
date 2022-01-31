@@ -37,6 +37,10 @@ const FormBottom = styled.div`
   @media (min-width: ${breakpoints.sm}px) {
     display: flex;
     flex-direction: row-reverse;
+    .cancel-btn {
+      min-width: unset;
+      padding: 12px 24px;
+    }
   }
 `;
 
@@ -64,8 +68,12 @@ function CreateFeedback() {
             height={120}
           />
           <FormBottom>
-            <Button type="submit">Add Feedback</Button>
-            <Button variant="tertiary">Cancel</Button>
+            <Button type="submit" className="submit-btn">
+              Add Feedback
+            </Button>
+            <Button variant="tertiary" className="cancel-btn">
+              Cancel
+            </Button>
           </FormBottom>
         </form>
       </FormCard>
