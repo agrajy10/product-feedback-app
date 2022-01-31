@@ -5,6 +5,8 @@ import breakpoints from '../styles/breakpoints';
 const Wrapper = styled.div`
   width: 100%;
   max-width: 72.375rem;
+  padding-top: 24px;
+  padding-bottom: 88px;
   padding-left: 1.5rem;
   padding-right: 1.5rem;
   margin: 0 auto;
@@ -13,7 +15,7 @@ const Wrapper = styled.div`
     padding-bottom: 120px;
   }
   @media (min-width: ${breakpoints.lg}px) {
-    padding-top: 94px;
+    padding-top: 80px;
     padding-bottom: 130px;
   }
 `;
