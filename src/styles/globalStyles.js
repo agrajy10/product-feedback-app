@@ -48,6 +48,19 @@ const GlobalStyle = createGlobalStyle`
         letter-spacing:-0.2px;
     }
 
+    .sr-only {
+        border: 0px;
+        clip: rect(0px, 0px, 0px, 0px);
+        height: 1px;
+        margin: -1px;
+        overflow: hidden;
+        padding: 0px;
+        position: absolute;
+        width: 1px;
+        white-space: nowrap;
+        overflow-wrap: normal;
+    }
+
 `;
 
 export default GlobalStyle;

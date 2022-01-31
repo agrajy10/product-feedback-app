@@ -19,8 +19,12 @@ const ButtonEl = styled.button`
   }
 `;
 
-function Button({ variant = 'primary', children }) {
-  return <ButtonEl variant={variant}>{children}</ButtonEl>;
+function Button({ variant = 'primary', type = 'button', children }) {
+  return (
+    <ButtonEl type={type} variant={variant}>
+      {children}
+    </ButtonEl>
+  );
 }
 
 export default Button;
