@@ -17,13 +17,15 @@ const DetailsTop = styled.div`
 function FeedbackDetails() {
   return (
     <Container>
-      <DetailsTop>
-        <BackButton>Go Back</BackButton>
-        <Button variant="secondary">Edit Feedback</Button>
-      </DetailsTop>
-      <FeedbackItem />
-      <Comments />
-      <CommentForm />
+      <main>
+        <DetailsTop>
+          <BackButton>Go Back</BackButton>
+          <Button variant="secondary">Edit Feedback</Button>
+        </DetailsTop>
+        <FeedbackItem titleTag="h1" />
+        <Comments />
+        <CommentForm />
+      </main>
     </Container>
   );
 }

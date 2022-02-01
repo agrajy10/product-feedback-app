@@ -79,10 +79,10 @@ const CommentCount = styled.span`
   }
 `;
 
-function FeedbackItem({ className }) {
+function FeedbackItem({ className, titleTag = 'h2' }) {
   return (
     <Wrapper className={className}>
-      <FeedbackTitle>Add tags for solutions</FeedbackTitle>
+      <FeedbackTitle as={titleTag}>Add tags for solutions</FeedbackTitle>
       <FeedbackDesc>Easier to search for solutions based on a specific stack.</FeedbackDesc>
       <FeedbackCategory>Enhancement</FeedbackCategory>
       <Footer>
