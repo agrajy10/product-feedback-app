@@ -37,7 +37,7 @@ const Status = styled.p`
   }
 `;
 
-const FeedbackTitle = styled.h2`
+const FeedbackTitle = styled.h3`
   font-size: 13px;
   letter-spacing: -0.18px;
   margin: 0 0 9px 0;
