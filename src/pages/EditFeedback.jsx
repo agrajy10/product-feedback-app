@@ -24,7 +24,7 @@ const FormContainer = styled(Container)`
 const FormHeading = styled.h1`
   font-size: 18px;
   margin: 0 0 24px 0;
-  @media (min-width: ${breakpoints.sm}px) {
+  @media (min-width: ${breakpoints.md}px) {
     font-size: 24px;
   }
 `;
@@ -35,7 +35,7 @@ const FormBottom = styled.div`
   gap: 16px;
   margin-top: 16px;
 
-  @media (min-width: ${breakpoints.sm}px) {
+  @media (min-width: ${breakpoints.md}px) {
     display: flex;
     flex-direction: row-reverse;
     .cancel-btn,

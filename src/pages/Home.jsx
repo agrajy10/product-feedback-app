@@ -34,7 +34,7 @@ const SortByWrapper = styled.div`
   background-color: #373f68;
   margin: 0 -24px;
   padding: 8px 24px;
-  @media (min-width: ${breakpoints.sm}px) {
+  @media (min-width: ${breakpoints.md}px) {
     justify-content: flex-start;
     gap: 38px;
     margin: 0;
@@ -54,7 +54,7 @@ const FeedbackCount = styled.p`
 `;
 
 const AddFeedbackButton = styled(Button)`
-  @media (min-width: ${breakpoints.sm}px) {
+  @media (min-width: ${breakpoints.md}px) {
     margin-left: auto;
   }
 `;
@@ -69,7 +69,7 @@ const FeedbackListWrapper = styled.div`
 function Home() {
   const { width } = useWindowSize();
 
-  const pageHeader = width <= breakpoints.sm ? <MobileHeader /> : <Header />;
+  const pageHeader = width <= breakpoints.md ? <MobileHeader /> : <Header />;
 
   return (
     <HomeContainer>

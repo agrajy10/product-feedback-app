@@ -8,7 +8,7 @@ const Wrapper = styled.div`
   border-radius: 10px;
   margin-top: 55px;
   padding: 44px 23px;
-  @media (min-width: ${breakpoints.sm}px) {
+  @media (min-width: ${breakpoints.md}px) {
     margin-top: 68px;
     padding: 52px 42px;
   }
@@ -22,7 +22,7 @@ const Icon = styled.img`
   height: 40px;
   border-radius: 50%;
   z-index: 1;
-  @media (min-width: ${breakpoints.sm}px) {
+  @media (min-width: ${breakpoints.md}px) {
     width: 56px;
     height: 56px;
     top: -28px;
