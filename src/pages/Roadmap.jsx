@@ -57,8 +57,10 @@ function Roadmap() {
         </div>
         <Button>+ Add Feedback</Button>
       </Header>
-      {width <= breakpoints.md && <RoadmapTabs />}
-      {width > breakpoints.md && <RoadmapGrid />}
+      <main>
+        {width <= breakpoints.md && <RoadmapTabs />}
+        {width > breakpoints.md && <RoadmapGrid />}
+      </main>
     </RoadmapContainer>
   );
 }
