@@ -3,16 +3,21 @@ import { Link } from 'react-router-dom';
 
 import breakpoints from '../styles/breakpoints';
 
-import IconArrowLeft from '../assets/shared/icon-arrow-left.svg';
+import { ReactComponent as IconArrowLeft } from '../assets/shared/icon-arrow-left.svg';
 
 const LinkEl = styled(Link)`
-  display: inline-block;
-  padding-left: 23px;
-  background: url(${IconArrowLeft}) no-repeat left center;
+  display: inline-flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 0 15px;
+  background: transparent;
   font-size: 13px;
   font-weight: 700;
-  color: ${({ theme }) => theme.color};
+  color: ${({ theme, variant }) => theme.goBackButton[variant].color};
   text-decoration: none;
+  svg {
+    color: ${({ theme, variant }) => theme.goBackButton[variant].arrow};
+  }
   &:hover {
     text-decoration: underline;
   }
@@ -21,8 +26,13 @@ const LinkEl = styled(Link)`
   }
 `;
 
-function BackButton({ children }) {
-  return <LinkEl to="/">{children}</LinkEl>;
+function BackButton({ children, variant = 'light' }) {
+  return (
+    <LinkEl to="/" variant={variant}>
+      <IconArrowLeft />
+      {children}
+    </LinkEl>
+  );
 }
 
 export default BackButton;

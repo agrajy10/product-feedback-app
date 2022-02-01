@@ -39,6 +39,16 @@ const theme = {
       }
     }
   },
+  goBackButton: {
+    light: {
+      color: '#647196',
+      arrow: '#4661E6'
+    },
+    dark: {
+      color: '#FFFFFF',
+      arrow: '#CDD2EE'
+    }
+  },
   upVoteButton: {
     bg: '#F2F4FE',
     color: '#3A4374',
