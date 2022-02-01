@@ -2,6 +2,7 @@ import styled from 'styled-components';
 
 import Container from '../layout/Container';
 import Button from '../components/Button';
+import BackButton from '../components/BackButton';
 import RoadmapTabs from '../components/Roadmap/RoadmapTabs';
 import RoadmapGrid from '../components/Roadmap/RoadmapGrid';
 
@@ -50,7 +51,10 @@ function Roadmap() {
   return (
     <RoadmapContainer>
       <Header>
-        <Heading>Roadmap</Heading>
+        <div>
+          <BackButton variant="dark">Go Back</BackButton>
+          <Heading>Roadmap</Heading>
+        </div>
         <Button>+ Add Feedback</Button>
       </Header>
       {width <= breakpoints.md && <RoadmapTabs />}
