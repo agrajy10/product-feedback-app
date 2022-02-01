@@ -1,11 +1,11 @@
 import styled from 'styled-components';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 import breakpoints from '../styles/breakpoints';
 
 import { ReactComponent as IconArrowLeft } from '../assets/shared/icon-arrow-left.svg';
 
-const LinkEl = styled(Link)`
+const Button = styled.button`
   display: inline-flex;
   align-items: center;
   justify-content: flex-start;
@@ -13,6 +13,9 @@ const LinkEl = styled(Link)`
   background: transparent;
   font-size: 13px;
   font-weight: 700;
+  border: none;
+  cursor: pointer;
+  user-select: none;
   color: ${({ theme, variant }) => theme.goBackButton[variant].color};
   text-decoration: none;
   svg {
@@ -27,11 +30,13 @@ const LinkEl = styled(Link)`
 `;
 
 function BackButton({ children, variant = 'light' }) {
+  const navigate = useNavigate();
+
   return (
-    <LinkEl to="/" variant={variant}>
+    <Button onClick={() => navigate(-1)} variant={variant}>
       <IconArrowLeft />
       {children}
-    </LinkEl>
+    </Button>
   );
 }
 
