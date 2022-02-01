@@ -14,11 +14,16 @@ import breakpoints from '../styles/breakpoints';
 import IconSuggestions from '../assets/suggestions/icon-suggestions.svg';
 
 const HomeContainer = styled(Container)`
+  padding-top: 0;
+  @media (min-width: ${breakpoints.md}px) {
+    padding-top: 56px;
+  }
   @media (min-width: ${breakpoints.lg}px) {
     display: grid;
     grid-template-columns: 255px 1fr;
     gap: 0 24px;
     align-items: flex-start;
+    padding-top: 94px;
   }
 `;
 
