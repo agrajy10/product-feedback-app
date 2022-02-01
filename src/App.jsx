@@ -9,6 +9,7 @@ import Home from './pages/Home';
 import FeedbackDetails from './pages/FeedbackDetails';
 import CreateFeedback from './pages/CreateFeedback';
 import EditFeedback from './pages/EditFeedback';
+import Roadmap from './pages/Roadmap';
 
 function App() {
   return (
@@ -18,6 +19,7 @@ function App() {
         <Router>
           <Routes>
             <Route path="/" element={<Home />}></Route>
+            <Route path="/roadmap" element={<Roadmap />}></Route>
             <Route path="/feedback/:feedbackID" element={<FeedbackDetails />}></Route>
             <Route path="/create-feedback" element={<CreateFeedback />}></Route>
             <Route path="/edit-feedback/:feedbackID" element={<EditFeedback />}></Route>
