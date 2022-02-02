@@ -1,6 +1,4 @@
-import styled from 'styled-components';
-
-import Container from '../layout/Container';
+import { FormContainer, FormHeading, FormBottom } from './FormStyles';
 import BackButton from '../components/BackButton';
 import Button from '../components/Button';
 import FormCard from '../components/FormCard';
@@ -8,46 +6,7 @@ import TextField from '../components/TextField';
 import SelectField from '../components/SelectField';
 import TextAreaField from '../components/TextAreaField';
 
-import breakpoints from '../styles/breakpoints';
-
 import IconEditFeedback from '../assets/shared/icon-edit-feedback.svg';
-
-const FormContainer = styled(Container)`
-  max-width: 540px;
-  input,
-  select,
-  textarea {
-    margin-bottom: 24px;
-  }
-`;
-
-const FormHeading = styled.h1`
-  font-size: 18px;
-  margin: 0 0 24px 0;
-  @media (min-width: ${breakpoints.md}px) {
-    font-size: 24px;
-  }
-`;
-
-const FormBottom = styled.div`
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: 16px;
-  margin-top: 16px;
-
-  @media (min-width: ${breakpoints.md}px) {
-    display: flex;
-    flex-direction: row-reverse;
-    .cancel-btn,
-    .delete-btn {
-      padding: 12px 24px;
-      min-width: unset;
-    }
-    .delete-btn {
-      margin-right: auto;
-    }
-  }
-`;
 
 function CreateFeedback() {
   return (
