@@ -85,20 +85,26 @@ const validationSchema = Yup.object({
 });
 
 function Register() {
-  const [error, setError] = useState('');
+  const [message, setMessage] = useState({ type: '', content: '' });
   const navigate = useNavigate();
 
   const onSubmit = async ({ fullname, email, password }) => {
+    setMessage({ type: '', content: '' });
     try {
-      setError('');
       const { user } = await createUserWithEmailAndPassword(auth, email, password);
       await updateProfile(auth.currentUser, {
         displayName: fullname
       });
       await setDoc(doc(db, 'users', user.uid), { fullname, email });
-      navigate('/');
+      setMessage({
+        type: 'success',
+        content: 'Registered successfully. Now you will be redirected'
+      });
+      setTimeout(() => {
+        navigate('/');
+      }, 1200);
     } catch (error) {
-      setError(error.message);
+      setMessage({ type: 'error', content: error.message });
     }
   };
 
@@ -108,7 +114,7 @@ function Register() {
         <BackButton>Go Back</BackButton>
         <FormCard icon={IconNewFeedback}>
           <FormHeading>Register</FormHeading>
-          {error && <Alert>{error}</Alert>}
+          {message.content && <Alert variant={message.type}>{message.content}</Alert>}
           <Formik
             initialValues={initialValues}
             validationSchema={validationSchema}
