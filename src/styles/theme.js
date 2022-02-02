@@ -108,6 +108,12 @@ const theme = {
     replyButton: {
       color: '#4661E6'
     }
+  },
+  alert: {
+    error: {
+      bg: '#ff5454',
+      color: '#FFFFFF'
+    }
   }
 };
 
