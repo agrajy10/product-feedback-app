@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import { useField } from 'formik';
 
 const Label = styled.label`
   display: block;
@@ -23,19 +24,31 @@ const Input = styled.input`
   border-radius: 0.3125rem;
   background-color: ${({ theme }) => theme.textField.bg};
   color: ${({ theme }) => theme.textField.color};
-  border: 1px solid ${({ theme }) => theme.textField.borderColor};
+  border: 1px solid
+    ${({ theme, error }) =>
+      error ? theme.textField.error.borderColor : theme.textField.borderColor};
   outline: 0;
   &:focus {
-    border-color: ${({ theme }) => theme.textField.active.borderColor};
+    border-color: ${({ theme, error }) =>
+      error ? theme.textField.error.borderColor : theme.textField.active.borderColor};
   }
 `;
 
-function TextField({ label, labelDesc, id }) {
+const Error = styled.span`
+  display: block;
+  font-size: 14px;
+  line-height: 2;
+  color: ${({ theme }) => theme.textField.error.color};
+`;
+
+function TextField({ label, labelDesc, id, ...props }) {
+  const [field, meta] = useField(props);
   return (
     <>
       {label && <Label htmlFor={id}>{label}</Label>}
       {labelDesc && <LabelDesc>{labelDesc}</LabelDesc>}
-      <Input id={id} type="text" />
+      <Input id={id} error={meta.touched && meta.error ? true : false} {...field} {...props} />
+      {meta.touched && meta.error ? <Error>{meta.error}</Error> : ''}
     </>
   );
 }
