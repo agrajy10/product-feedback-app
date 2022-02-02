@@ -17,11 +17,15 @@ const ButtonEl = styled.button`
     background-color: ${({ variant, theme }) => theme.button[variant].hover.bg};
     color: ${({ variant, theme }) => theme.button[variant].hover.color};
   }
+  &:disabled {
+    opacity: 0.7;
+    cursor: not-allowed;
+  }
 `;
 
-function Button({ className, variant = 'primary', type = 'button', children }) {
+function Button({ className, variant = 'primary', type = 'button', children, ...props }) {
   return (
-    <ButtonEl className={className} type={type} variant={variant}>
+    <ButtonEl className={className} type={type} variant={variant} {...props}>
       {children}
     </ButtonEl>
   );
