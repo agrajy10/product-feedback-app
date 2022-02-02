@@ -21,14 +21,14 @@ function App() {
         <GlobalStyle />
         <Router>
           <Routes>
-            <Route path="/" element={<Home />}></Route>
-            <Route path="/roadmap" element={<Roadmap />}></Route>
-            <Route path="/feedback/:feedbackID" element={<FeedbackDetails />}></Route>
-            <Route path="/create-feedback" element={<CreateFeedback />}></Route>
-            <Route path="/edit-feedback/:feedbackID" element={<EditFeedback />}></Route>
-            <Route path="/login" element={<Login />}></Route>
-            <Route path="/register" element={<Register />}></Route>
-            <Route path="/forgot-password" element={<FrogotPassword />}></Route>
+            <Route path="/" element={<Home />} />
+            <Route path="/roadmap" element={<Roadmap />} />
+            <Route path="/feedback/:feedbackID" element={<FeedbackDetails />} />
+            <Route path="/create-feedback" element={<CreateFeedback />} />
+            <Route path="/edit-feedback/:feedbackID" element={<EditFeedback />} />
+            <Route path="/login" element={<Login />} />
+            <Route path="/register" element={<Register />} />
+            <Route path="/forgot-password" element={<FrogotPassword />} />
           </Routes>
         </Router>
       </ThemeProvider>
