@@ -113,6 +113,10 @@ const theme = {
     error: {
       bg: '#ff5454',
       color: '#FFFFFF'
+    },
+    success: {
+      bg: '#3ec74a',
+      color: '#FFFFFF'
     }
   }
 };
