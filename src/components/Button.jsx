@@ -33,6 +33,8 @@ const LinkEl = styled(Link)`
   font-weight: 700;
   font-size: 0.875rem;
   line-height: 1;
+  text-align: center;
+  text-decoration: none;
   border: none;
   border-radius: 0.625rem;
   cursor: pointer;
