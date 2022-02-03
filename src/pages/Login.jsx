@@ -1,17 +1,17 @@
-import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { Formik, Form } from 'formik';
 import * as Yup from 'yup';
-import { signInWithEmailAndPassword } from 'firebase/auth';
+import { useDispatch } from 'react-redux';
+import { unwrapResult } from '@reduxjs/toolkit';
+import { toast } from 'react-toastify';
 
 import { FormContainer, FormHeading, FormBottom, FormLinks } from './FormStyles';
 import BackButton from '../components/BackButton';
 import Button from '../components/Button';
 import FormCard from '../components/FormCard';
 import TextField from '../components/TextField';
-import Alert from '../components/Alert';
 
-import { auth } from '../firebase-config';
+import { loginUser } from '../features/auth/authThunk';
 
 import IconNewFeedback from '../assets/shared/icon-new-feedback.svg';
 
@@ -26,23 +26,20 @@ const validationSchema = Yup.object({
 });
 
 function Login() {
-  const [message, setMessage] = useState({ type: '', content: '' });
+  const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const onSubmit = async ({ email, password }) => {
-    setMessage({ type: '', content: '' });
-    try {
-      await signInWithEmailAndPassword(auth, email, password);
-      setMessage({
-        type: 'success',
-        content: 'Logged in successfully. Now you will be redirected'
-      });
-      setTimeout(() => {
+  const onSubmit = async ({ email, password }, setSubmitting) => {
+    dispatch(loginUser({ email, password }))
+      .then(unwrapResult)
+      .then(() => {
+        toast.success('Logged in successfully');
         navigate('/');
-      }, 1200);
-    } catch (error) {
-      setMessage({ type: 'error', content: error.message });
-    }
+      })
+      .catch(({ message }) => {
+        toast.error(message);
+        setSubmitting(false);
+      });
   };
 
   return (
@@ -51,11 +48,10 @@ function Login() {
         <BackButton>Go Back</BackButton>
         <FormCard icon={IconNewFeedback}>
           <FormHeading>Login</FormHeading>
-          {message.content && <Alert variant={message.type}>{message.content}</Alert>}
           <Formik
             initialValues={initialValues}
             validationSchema={validationSchema}
-            onSubmit={onSubmit}>
+            onSubmit={(values, { setSubmitting }) => onSubmit(values, setSubmitting)}>
             {({ isSubmitting }) => {
               return (
                 <Form>

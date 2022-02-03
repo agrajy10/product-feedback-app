@@ -1,18 +1,17 @@
-import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { Formik, Form } from 'formik';
 import * as Yup from 'yup';
-import { createUserWithEmailAndPassword, updateProfile } from 'firebase/auth';
-import { doc, setDoc } from 'firebase/firestore';
+import { useDispatch } from 'react-redux';
+import { unwrapResult } from '@reduxjs/toolkit';
+import { toast } from 'react-toastify';
 
 import { FormContainer, FormHeading, FormBottom, FormLinks } from './FormStyles';
 import BackButton from '../components/BackButton';
 import Button from '../components/Button';
 import FormCard from '../components/FormCard';
 import TextField from '../components/TextField';
-import Alert from '../components/Alert';
 
-import { auth, db } from '../firebase-config';
+import { registerUser } from '../features/auth/authThunk';
 
 import IconNewFeedback from '../assets/shared/icon-new-feedback.svg';
 
@@ -33,27 +32,20 @@ const validationSchema = Yup.object({
 });
 
 function Register() {
-  const [message, setMessage] = useState({ type: '', content: '' });
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
-  const onSubmit = async ({ fullname, email, password }) => {
-    setMessage({ type: '', content: '' });
-    try {
-      const { user } = await createUserWithEmailAndPassword(auth, email, password);
-      await updateProfile(auth.currentUser, {
-        displayName: fullname
-      });
-      await setDoc(doc(db, 'users', user.uid), { fullname, email });
-      setMessage({
-        type: 'success',
-        content: 'Registered successfully. Now you will be redirected'
-      });
-      setTimeout(() => {
+  const onSubmit = ({ fullname, email, password }, setSubmitting) => {
+    dispatch(registerUser({ fullname, email, password }))
+      .then(unwrapResult)
+      .then(() => {
+        toast.success('Registered successfully');
         navigate('/');
-      }, 1200);
-    } catch (error) {
-      setMessage({ type: 'error', content: error.message });
-    }
+      })
+      .catch(({ message }) => {
+        toast.error(message);
+        setSubmitting(false);
+      });
   };
 
   return (
@@ -62,11 +54,10 @@ function Register() {
         <BackButton>Go Back</BackButton>
         <FormCard icon={IconNewFeedback}>
           <FormHeading>Register</FormHeading>
-          {message.content && <Alert variant={message.type}>{message.content}</Alert>}
           <Formik
             initialValues={initialValues}
             validationSchema={validationSchema}
-            onSubmit={onSubmit}>
+            onSubmit={(values, { setSubmitting }) => onSubmit(values, setSubmitting)}>
             {({ isSubmitting }) => {
               return (
                 <Form>

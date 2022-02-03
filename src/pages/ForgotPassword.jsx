@@ -1,16 +1,16 @@
-import { useState } from 'react';
 import { Formik, Form } from 'formik';
 import * as Yup from 'yup';
-import { sendPasswordResetEmail } from 'firebase/auth';
+import { useDispatch } from 'react-redux';
+import { unwrapResult } from '@reduxjs/toolkit';
+import { toast } from 'react-toastify';
 
 import { FormContainer, FormHeading, FormBottom } from './FormStyles';
 import BackButton from '../components/BackButton';
 import Button from '../components/Button';
 import FormCard from '../components/FormCard';
 import TextField from '../components/TextField';
-import Alert from '../components/Alert';
 
-import { auth } from '../firebase-config';
+import { sendPasswordResetLink } from '../features/auth/authThunk';
 
 import IconNewFeedback from '../assets/shared/icon-new-feedback.svg';
 
@@ -23,19 +23,20 @@ const validationSchema = Yup.object({
 });
 
 function FrogotPassword() {
-  const [message, setMessage] = useState({ type: '', content: '' });
+  const dispatch = useDispatch();
 
-  const onSubmit = async ({ email }) => {
-    setMessage({ type: '', content: '' });
-    try {
-      await sendPasswordResetEmail(auth, email);
-      setMessage({
-        type: 'success',
-        content: 'Reset link sent successfully.'
+  const onSubmit = async ({ email }, setSubmitting) => {
+    dispatch(sendPasswordResetLink({ email }))
+      .then(unwrapResult)
+      .then((message) => {
+        toast.success(message);
+      })
+      .catch(({ message }) => {
+        toast.error(message);
+      })
+      .finally(() => {
+        setSubmitting(false);
       });
-    } catch (error) {
-      setMessage({ type: 'error', content: error.message });
-    }
   };
 
   return (
@@ -44,11 +45,10 @@ function FrogotPassword() {
         <BackButton>Go Back</BackButton>
         <FormCard icon={IconNewFeedback}>
           <FormHeading>Reset password</FormHeading>
-          {message.content && <Alert variant={message.type}>{message.content}</Alert>}
           <Formik
             initialValues={initialValues}
             validationSchema={validationSchema}
-            onSubmit={onSubmit}>
+            onSubmit={(values, { setSubmitting }) => onSubmit(values, setSubmitting)}>
             {({ isSubmitting }) => {
               return (
                 <Form>

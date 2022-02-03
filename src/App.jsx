@@ -1,6 +1,8 @@
 import 'normalize.css';
 import { ThemeProvider } from 'styled-components';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 import GlobalStyle from './styles/globalStyles';
 import theme from './styles/theme';
@@ -31,6 +33,7 @@ function App() {
             <Route path="/forgot-password" element={<FrogotPassword />} />
           </Routes>
         </Router>
+        <ToastContainer />
       </ThemeProvider>
     </div>
   );
