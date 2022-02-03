@@ -2,11 +2,11 @@ import styled from 'styled-components';
 
 import CategoriesCard from './CategoriesCard';
 import RoadMapCard from './RoadMapCard';
+import UserCard from './UserCard';
 
 import breakpoints from '../styles/breakpoints';
 
 import tableHeaderBg from '../assets/suggestions/tablet/background-header.png';
-import desktopHeaderBg from '../assets/suggestions/desktop/background-header.png';
 
 const Wrapper = styled.header`
   display: grid;
@@ -57,6 +57,7 @@ function Header() {
           Frontend Mentor <span>Feedback Board</span>
         </Logo>
       </LogoWrapper>
+      <UserCard />
       <CategoriesCard />
       <RoadMapCard />
     </Wrapper>

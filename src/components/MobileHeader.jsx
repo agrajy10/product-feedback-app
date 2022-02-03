@@ -3,6 +3,7 @@ import { Popover } from '@headlessui/react';
 
 import CategoriesCard from './CategoriesCard';
 import RoadMapCard from './RoadMapCard';
+import UserCard from './UserCard';
 
 import headerBg from '../assets/suggestions/mobile/background-header.png';
 import IconHamburger from '../assets/shared/mobile/icon-hamburger.svg';
@@ -87,6 +88,7 @@ function MobileHeader() {
             </MenuToggler>
             <Overlay />
             <MenuWrapper>
+              <UserCard />
               <CategoriesCard />
               <RoadMapCard />
             </MenuWrapper>
