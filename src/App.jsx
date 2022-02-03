@@ -1,8 +1,10 @@
 import 'normalize.css';
+import { useEffect } from 'react';
 import { ThemeProvider } from 'styled-components';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { useDispatch } from 'react-redux';
 
 import GlobalStyle from './styles/globalStyles';
 import theme from './styles/theme';
@@ -16,7 +18,24 @@ import Login from './pages/Login';
 import Register from './pages/Register';
 import FrogotPassword from './pages/ForgotPassword';
 
+import { setUser } from './features/auth/authSlice';
+import { onAuthStateChanged } from 'firebase/auth';
+import { auth } from './firebase-config';
+
 function App() {
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    const unSubscribe = onAuthStateChanged(auth, (user) => {
+      if (user) {
+        dispatch(setUser(user.toJSON()));
+      } else {
+        dispatch(setUser(null));
+      }
+    });
+    return () => unSubscribe();
+  }, []);
+
   return (
     <div className="App">
       <ThemeProvider theme={theme}>

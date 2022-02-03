@@ -3,7 +3,8 @@ import {
   createUserWithEmailAndPassword,
   updateProfile,
   signInWithEmailAndPassword,
-  sendPasswordResetEmail
+  sendPasswordResetEmail,
+  signOut
 } from 'firebase/auth';
 import { setDoc, doc } from 'firebase/firestore';
 
@@ -29,6 +30,14 @@ export const loginUser = createAsyncThunk('auth/loginUser', async ({ email, pass
   try {
     await signInWithEmailAndPassword(auth, email, password);
     return auth.currentUser.toJSON();
+  } catch (error) {
+    throw error.message;
+  }
+});
+
+export const logoutUser = createAsyncThunk('auth/logoutUser', async () => {
+  try {
+    await signOut(auth);
   } catch (error) {
     throw error.message;
   }
