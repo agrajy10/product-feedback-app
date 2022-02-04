@@ -1,4 +1,7 @@
 import styled from 'styled-components';
+import { useSelector, useDispatch } from 'react-redux';
+
+import { filterFeedbackList } from '../features/feedback/feedbackListSlice';
 
 const Wrapper = styled.div`
   background-color: #ffffff;
@@ -40,28 +43,26 @@ const Category = styled.button`
   }
 `;
 
+const categories = ['All', 'UI', 'UX', 'Enhacement', 'Feature', 'Bug'];
+
 function CategoriesCard() {
+  const activeCategory = useSelector((state) => state.feedbackList.activeCategory);
+  const dispatch = useDispatch();
   return (
     <Wrapper>
       <CategoriesList>
-        <li>
-          <Category type="button">All</Category>
-        </li>
-        <li>
-          <Category type="button">UI</Category>
-        </li>
-        <li>
-          <Category type="button">UX</Category>
-        </li>
-        <li>
-          <Category type="button">Enhacement</Category>
-        </li>
-        <li>
-          <Category type="button">Bug</Category>
-        </li>
-        <li>
-          <Category type="button">Feature</Category>
-        </li>
+        {categories.map((category, index) => {
+          return (
+            <li key={index}>
+              <Category
+                type="button"
+                onClick={() => dispatch(filterFeedbackList(category))}
+                className={category === activeCategory ? 'active' : ''}>
+                {category}
+              </Category>
+            </li>
+          );
+        })}
       </CategoriesList>
     </Wrapper>
   );

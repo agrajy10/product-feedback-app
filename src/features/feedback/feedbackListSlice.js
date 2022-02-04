@@ -9,22 +9,36 @@ import {
 
 const initialState = {
   isLoading: true,
-  feedbackList: []
+  feedbackList: [],
+  filteredFeedbackList: [],
+  activeCategory: 'All'
 };
 
 const feedbackListSlice = createSlice({
   name: 'feedbackList',
   initialState,
-  reducers: {},
+  reducers: {
+    filterFeedbackList: (state, { payload }) => {
+      state.activeCategory = payload;
+      if (payload === 'All') {
+        state.filteredFeedbackList = state.feedbackList;
+      } else {
+        const updatedList = state.feedbackList.filter((item) => item.category === payload);
+        state.filteredFeedbackList = updatedList;
+      }
+    }
+  },
   extraReducers: {
     [createFeedback.fulfilled]: (state, { payload }) => {
       state.feedbackList.unshift(payload);
+      state.filteredFeedbackList.unshift(payload);
     },
     [fetchFeedbackList.pending]: (state) => {
       state.isLoading = true;
     },
     [fetchFeedbackList.fulfilled]: (state, { payload }) => {
       state.feedbackList = payload;
+      state.filteredFeedbackList = payload;
       state.isLoading = false;
     },
     [fetchFeedbackList.rejected]: (state) => {
@@ -38,12 +52,16 @@ const feedbackListSlice = createSlice({
         return item;
       });
       state.feedbackList = updatedList;
+      state.filteredFeedbackList = updatedList;
     },
     [deleteFeedback.fulfilled]: (state, { payload }) => {
       const updatedList = state.feedbackList.filter((item) => item.id !== payload);
       state.feedbackList = updatedList;
+      state.filteredFeedbackList = updatedList;
     }
   }
 });
+
+export const { filterFeedbackList } = feedbackListSlice.actions;
 
 export default feedbackListSlice.reducer;

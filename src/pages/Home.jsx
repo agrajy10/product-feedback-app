@@ -75,14 +75,14 @@ const FeedbackListWrapper = styled.div`
 
 function Home() {
   const { width } = useWindowSize();
-  const { isLoading, feedbackList } = useSelector((state) => state.feedbackList);
+  const { isLoading, filteredFeedbackList } = useSelector((state) => state.feedbackList);
 
   const pageHeader = width <= breakpoints.md ? <MobileHeader /> : <Header />;
 
   const FeedbackCountText =
-    feedbackList.length === 1 || !feedbackList.length
-      ? `${feedbackList.length} Suggestion`
-      : `${feedbackList.length} Suggestions`;
+    filteredFeedbackList.length === 1 || !filteredFeedbackList.length
+      ? `${filteredFeedbackList.length} Suggestion`
+      : `${filteredFeedbackList.length} Suggestions`;
 
   return (
     <HomeContainer>
@@ -94,10 +94,10 @@ function Home() {
           <AddFeedbackButton href="/create-feedback">+ Add Feedback</AddFeedbackButton>
         </SortByWrapper>
         {isLoading && <p>Loading....</p>}
-        {!isLoading && feedbackList.length == 0 && <NoFeedback />}
-        {!isLoading && feedbackList.length > 0 && (
+        {!isLoading && filteredFeedbackList.length == 0 && <NoFeedback />}
+        {!isLoading && filteredFeedbackList.length > 0 && (
           <FeedbackListWrapper>
-            {feedbackList.map(({ id, ...data }) => {
+            {filteredFeedbackList.map(({ id, ...data }) => {
               return <FeedbackItem key={id} id={id} {...data} />;
             })}
           </FeedbackListWrapper>
