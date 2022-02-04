@@ -1,11 +1,11 @@
 import styled from 'styled-components';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 import breakpoints from '../styles/breakpoints';
 
 import { ReactComponent as IconArrowLeft } from '../assets/shared/icon-arrow-left.svg';
 
-const Button = styled.button`
+const Button = styled(Link)`
   display: inline-flex;
   align-items: center;
   justify-content: flex-start;
@@ -30,10 +30,8 @@ const Button = styled.button`
 `;
 
 function BackButton({ children, variant = 'light' }) {
-  const navigate = useNavigate();
-
   return (
-    <Button onClick={() => navigate(-1)} variant={variant}>
+    <Button to="/" variant={variant}>
       <IconArrowLeft />
       {children}
     </Button>
