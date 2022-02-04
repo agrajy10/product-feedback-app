@@ -18,6 +18,7 @@ import Roadmap from './pages/Roadmap';
 import Login from './pages/Login';
 import Register from './pages/Register';
 import FrogotPassword from './pages/ForgotPassword';
+import PrivateRoute from './components/PrivateRoute';
 
 import { fetchFeedbackList } from './features/feedback/feedbackListThunk';
 
@@ -37,8 +38,10 @@ function App() {
 
     const unSubscribe = onAuthStateChanged(auth, (user) => {
       if (user) {
+        localStorage.setItem('isAuthenticated', true);
         dispatch(setUser(user.toJSON()));
       } else {
+        localStorage.removeItem('isAuthenticated');
         dispatch(setUser(null));
       }
     });
@@ -55,8 +58,12 @@ function App() {
             <Route path="/" element={<Home />} />
             <Route path="/roadmap" element={<Roadmap />} />
             <Route path="/feedback/:feedbackID" element={<FeedbackDetails />} />
-            <Route path="/create-feedback" element={<CreateFeedback />} />
-            <Route path="/edit-feedback/:feedbackID" element={<EditFeedback />} />
+            <Route path="/create-feedback" element={<PrivateRoute />}>
+              <Route path="/create-feedback" element={<CreateFeedback />} />
+            </Route>
+            <Route path="/edit-feedback/:feedbackID" element={<PrivateRoute />}>
+              <Route path="/edit-feedback/:feedbackID" element={<EditFeedback />} />
+            </Route>
             <Route path="/login" element={<Login />} />
             <Route path="/register" element={<Register />} />
             <Route path="/forgot-password" element={<FrogotPassword />} />

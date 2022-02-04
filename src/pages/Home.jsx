@@ -95,7 +95,7 @@ function Home() {
         </SortByWrapper>
         {isLoading && <p>Loading....</p>}
         {!isLoading && feedbackList.length == 0 && <NoFeedback />}
-        {!isLoading && feedbackList.length && (
+        {!isLoading && feedbackList.length > 0 && (
           <FeedbackListWrapper>
             {feedbackList.map(({ id, ...data }) => {
               return <FeedbackItem key={id} id={id} {...data} />;
