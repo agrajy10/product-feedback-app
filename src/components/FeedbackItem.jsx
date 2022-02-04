@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import { Link } from 'react-router-dom';
 
 import UpVoteButton from './UpVoteButton';
 
@@ -20,6 +21,13 @@ const FeedbackTitle = styled.h2`
   font-size: 13px;
   letter-spacing: -0.18px;
   margin: 0 0 9px 0;
+  a {
+    text-decoration: none;
+    color: ${({ theme }) => theme.color};
+    &:hover {
+      color: ${({ theme }) => theme.button.secondary.bg};
+    }
+  }
   @media (min-width: ${breakpoints.md}px) {
     font-size: 18px;
   }
@@ -56,6 +64,7 @@ const Footer = styled.footer`
 `;
 
 const FeedbackUpvoteButton = styled(UpVoteButton)`
+  min-width: 42px;
   @media (min-width: ${breakpoints.md}px) {
     position: absolute;
     top: 28px;
@@ -79,15 +88,17 @@ const CommentCount = styled.span`
   }
 `;
 
-function FeedbackItem({ className, titleTag = 'h2' }) {
+function FeedbackItem({ id, title, details, category, upvotes, className, titleTag = 'h2' }) {
   return (
     <Wrapper className={className}>
-      <FeedbackTitle as={titleTag}>Add tags for solutions</FeedbackTitle>
-      <FeedbackDesc>Easier to search for solutions based on a specific stack.</FeedbackDesc>
-      <FeedbackCategory>Enhancement</FeedbackCategory>
+      <FeedbackTitle as={titleTag}>
+        <Link to={`/feedback/${id}`}>{title}</Link>
+      </FeedbackTitle>
+      <FeedbackDesc>{details}</FeedbackDesc>
+      <FeedbackCategory>{category}</FeedbackCategory>
       <Footer>
-        <FeedbackUpvoteButton />
-        <CommentCount>2</CommentCount>
+        <FeedbackUpvoteButton upvotes={upvotes.length} />
+        <CommentCount>0</CommentCount>
       </Footer>
     </Wrapper>
   );

@@ -1,5 +1,5 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
-import { collection, addDoc } from 'firebase/firestore';
+import { collection, addDoc, getDocs } from 'firebase/firestore';
 
 import { db, auth } from '../../firebase-config';
 
@@ -20,3 +20,15 @@ export const createFeedback = createAsyncThunk(
     }
   }
 );
+
+export const fetchFeedbackList = createAsyncThunk('feedbackList/fetchFeedbackList', async () => {
+  try {
+    const querySnapshot = await getDocs(collection(db, 'feedback'));
+    const feedbackListData = querySnapshot.docs.map((doc) => {
+      return { id: doc.id, data: doc.data() };
+    });
+    return feedbackListData;
+  } catch (error) {
+    throw error.message;
+  }
+});

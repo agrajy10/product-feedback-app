@@ -1,4 +1,8 @@
+import { useEffect } from 'react';
 import styled from 'styled-components';
+import { useDispatch, useSelector } from 'react-redux';
+import { unwrapResult } from '@reduxjs/toolkit';
+import { toast } from 'react-toastify';
 
 import Container from '../layout/Container';
 import Header from '../components/Header';
@@ -6,6 +10,9 @@ import MobileHeader from '../components/MobileHeader';
 import SortBy from '../components/SortBy';
 import Button from '../components/Button';
 import FeedbackItem from '../components/FeedbackItem';
+import NoFeedback from '../components/NoFeedback';
+
+import { fetchFeedbackList } from '../features/feedback/feedbackListThunk';
 
 import useWindowSize from '../hooks/useWindowSize';
 
@@ -68,25 +75,42 @@ const FeedbackListWrapper = styled.div`
 
 function Home() {
   const { width } = useWindowSize();
+  const { isLoading, feedbackList } = useSelector((state) => state.feedbackList);
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(fetchFeedbackList())
+      .then(unwrapResult)
+      .catch((error) => {
+        toast.error(error);
+      });
+  }, []);
 
   const pageHeader = width <= breakpoints.md ? <MobileHeader /> : <Header />;
+
+  const FeedbackCountText =
+    feedbackList.length === 1 || !feedbackList.length
+      ? `${feedbackList.length} Suggestion`
+      : `${feedbackList.length} Suggestions`;
 
   return (
     <HomeContainer>
       {pageHeader}
       <main>
         <SortByWrapper>
-          {width > breakpoints.md && <FeedbackCount>6 Suggestions</FeedbackCount>}
+          {width > breakpoints.md && <FeedbackCount>{FeedbackCountText}</FeedbackCount>}
           <SortBy />
           <AddFeedbackButton href="/create-feedback">+ Add Feedback</AddFeedbackButton>
         </SortByWrapper>
-        <FeedbackListWrapper>
-          <FeedbackItem />
-          <FeedbackItem />
-          <FeedbackItem />
-          <FeedbackItem />
-          <FeedbackItem />
-        </FeedbackListWrapper>
+        {isLoading && <p>Loading....</p>}
+        {!isLoading && feedbackList.length == 0 && <NoFeedback />}
+        {!isLoading && feedbackList.length && (
+          <FeedbackListWrapper>
+            {feedbackList.map(({ id, data }) => {
+              return <FeedbackItem key={id} id={id} {...data} />;
+            })}
+          </FeedbackListWrapper>
+        )}
       </main>
     </HomeContainer>
   );

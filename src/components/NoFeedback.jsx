@@ -41,7 +41,7 @@ function NoFeedback() {
         Got a suggestion? Found a bug that needs to be squashed? We love hearing about new ideas to
         improve our app.
       </p>
-      <Button>+ Add Feedback</Button>
+      <Button href="/create-feedback">+ Add Feedback</Button>
     </Wrapper>
   );
 }

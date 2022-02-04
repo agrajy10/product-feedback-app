@@ -44,11 +44,11 @@ const Button = styled.button`
   }
 `;
 
-function UpVoteButton({ className }) {
+function UpVoteButton({ className, upvotes }) {
   return (
     <Button className={className} type="button">
       <IconArrowUp />
-      112
+      {upvotes}
     </Button>
   );
 }
