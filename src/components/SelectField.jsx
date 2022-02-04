@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import { useField } from 'formik';
 
 import IconArrowDown from '../assets/shared/icon-arrow-down.svg';
 
@@ -26,25 +27,32 @@ const Select = styled.select`
   background: ${({ theme }) => theme.textField.bg} url(${IconArrowDown}) no-repeat calc(100% - 22px)
     center;
   color: ${({ theme }) => theme.textField.color};
-  border: 1px solid ${({ theme }) => theme.textField.borderColor};
+  border: 1px solid
+    ${({ theme, error }) =>
+      error ? theme.textField.error.borderColor : theme.textField.borderColor};
   appearance: none;
   outline: 0;
   &:focus {
-    border-color: ${({ theme }) => theme.textField.active.borderColor};
+    border-color: ${({ theme, error }) =>
+      error ? theme.textField.error.borderColor : theme.textField.active.borderColor};
   }
 `;
 
-function SelectField({ label, labelDesc, id }) {
+const Error = styled.span`
+  display: block;
+  font-size: 14px;
+  line-height: 2;
+  color: ${({ theme }) => theme.textField.error.color};
+`;
+
+function SelectField({ label, labelDesc, id, ...props }) {
+  const [field, meta] = useField(props);
   return (
     <>
       {label && <Label htmlFor={id}>{label}</Label>}
       {labelDesc && <LabelDesc>{labelDesc}</LabelDesc>}
-      <Select id={id}>
-        <option value="">Feature</option>
-        <option value="">Enhancement</option>
-        <option value="">UI</option>
-        <option value="">UX</option>
-      </Select>
+      <Select id={id} error={meta.touched && meta.error ? true : false} {...field} {...props} />
+      {meta.touched && meta.error ? <Error>{meta.error}</Error> : ''}
     </>
   );
 }

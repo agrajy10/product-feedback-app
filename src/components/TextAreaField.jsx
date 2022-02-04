@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import { useField } from 'formik';
 
 const Label = styled.label`
   display: block;
@@ -22,24 +23,42 @@ const TextArea = styled.textarea`
   border-radius: 5px;
   background-color: ${({ theme }) => theme.textField.bg};
   color: ${({ theme }) => theme.textField.color};
-  border: 1px solid ${({ theme }) => theme.textField.borderColor};
+  border: 1px solid
+    ${({ theme, error }) =>
+      error ? theme.textField.error.borderColor : theme.textField.borderColor};
   outline: 0;
   resize: none;
-  margin-bottom: 16px;
+  margin-bottom: 0;
   &::placeholder {
     color: #8c92b3;
   }
   &:focus {
-    border-color: ${({ theme }) => theme.textField.active.borderColor};
+    border-color: ${({ theme, error }) =>
+      error ? theme.textField.error.borderColor : theme.textField.active.borderColor};
   }
 `;
 
-function TextAreaField({ label, labelDesc, height = 80, id }) {
+const Error = styled.span`
+  display: block;
+  font-size: 14px;
+  line-height: 2;
+  color: ${({ theme }) => theme.textField.error.color};
+`;
+
+function TextAreaField({ label, labelDesc, height = 80, id, ...props }) {
+  const [field, meta] = useField(props);
   return (
     <>
       {label && <Label htmlFor={id}>{label}</Label>}
       {labelDesc && <LabelDesc>{labelDesc}</LabelDesc>}
-      <TextArea id={id} height={height} />
+      <TextArea
+        id={id}
+        height={height}
+        error={meta.touched && meta.error ? true : false}
+        {...field}
+        {...props}
+      />
+      {meta.touched && meta.error ? <Error>{meta.error}</Error> : ''}
     </>
   );
 }

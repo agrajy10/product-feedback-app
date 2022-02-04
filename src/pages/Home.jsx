@@ -78,7 +78,7 @@ function Home() {
         <SortByWrapper>
           {width > breakpoints.md && <FeedbackCount>6 Suggestions</FeedbackCount>}
           <SortBy />
-          <AddFeedbackButton>+ Add Feedback</AddFeedbackButton>
+          <AddFeedbackButton href="/create-feedback">+ Add Feedback</AddFeedbackButton>
         </SortByWrapper>
         <FeedbackListWrapper>
           <FeedbackItem />
