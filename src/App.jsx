@@ -2,7 +2,7 @@ import 'normalize.css';
 import { useEffect } from 'react';
 import { ThemeProvider } from 'styled-components';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import { ToastContainer } from 'react-toastify';
+import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { useDispatch } from 'react-redux';
 import { unwrapResult } from '@reduxjs/toolkit';
@@ -42,6 +42,7 @@ function App() {
         dispatch(setUser(null));
       }
     });
+
     return () => unSubscribe();
   }, []);
 

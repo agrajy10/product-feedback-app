@@ -1,7 +1,8 @@
 import { useState, useEffect } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import { useSelector } from 'react-redux';
+import { toast } from 'react-toastify';
 
 import Container from '../layout/Container';
 import BackButton from '../components/BackButton';
@@ -20,31 +21,40 @@ const DetailsTop = styled.div`
 function FeedbackDetails() {
   const [feedback, setFeedback] = useState(null);
   const { isLoading, feedbackList } = useSelector((state) => state.feedbackList);
+  const { user } = useSelector((state) => state.auth);
   const { feedbackID } = useParams();
+  const navigate = useNavigate();
 
   useEffect(() => {
     if (!isLoading) {
       const [feedbackData] = feedbackList.filter(
         (feedbackListItem) => feedbackListItem.id === feedbackID
       );
-      setFeedback(feedbackData);
+      if (!feedbackData) {
+        toast.error('Feedback not found');
+        navigate('/');
+      } else {
+        setFeedback(feedbackData);
+      }
     }
   }, [feedbackID, isLoading]);
 
   return (
     <Container>
       <main>
-        <DetailsTop>
-          <BackButton>Go Back</BackButton>
-          <Button variant="secondary" href={`/edit-feedback/${feedbackID}`}>
-            Edit Feedback
-          </Button>
-        </DetailsTop>
-        {feedback && (
+        {!feedback ? (
+          <p>Loading..</p>
+        ) : (
           <>
-            <FeedbackItem titleTag="h1" id={feedbackID} {...feedback.data} />
-            {/* <Comments /> */}
-            {/* <CommentForm /> */}
+            <DetailsTop>
+              <BackButton>Go Back</BackButton>
+              {user && user.uid === feedback.createdBy && (
+                <Button variant="secondary" href={`/edit-feedback/${feedbackID}`}>
+                  Edit Feedback
+                </Button>
+              )}
+            </DetailsTop>
+            <FeedbackItem titleTag="h1" {...feedback} />
           </>
         )}
       </main>

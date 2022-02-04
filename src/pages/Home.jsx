@@ -97,7 +97,7 @@ function Home() {
         {!isLoading && feedbackList.length == 0 && <NoFeedback />}
         {!isLoading && feedbackList.length && (
           <FeedbackListWrapper>
-            {feedbackList.map(({ id, data }) => {
+            {feedbackList.map(({ id, ...data }) => {
               return <FeedbackItem key={id} id={id} {...data} />;
             })}
           </FeedbackListWrapper>

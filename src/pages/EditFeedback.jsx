@@ -25,22 +25,32 @@ const validationSchema = Yup.object({
 
 function EditFeedback() {
   const [feedback, setFeedback] = useState(null);
-  const [isDeleting, setIsDeleting] = useState(false);
+  const [isSubmittingForm, setIsSubmittingForm] = useState(false);
   const { isLoading, feedbackList } = useSelector((state) => state.feedbackList);
+  const { user } = useSelector((state) => state.auth);
   const { feedbackID } = useParams();
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
   useEffect(() => {
-    if (!isLoading && feedbackList.length) {
+    if (!isLoading) {
       const [feedbackData] = feedbackList.filter(
         (feedbackListItem) => feedbackListItem.id === feedbackID
       );
-      setFeedback(feedbackData.data);
+      if (!feedbackData) {
+        toast.error('Feedback not found');
+        navigate('/');
+      } else if (feedbackData.createdBy !== user.uid) {
+        toast.error('You cannot edit this feedback');
+        navigate('/');
+      } else {
+        setFeedback(feedbackData);
+      }
     }
   }, [feedbackID, isLoading]);
 
-  const onSubmit = (values, setSubmitting) => {
+  const onSubmit = (values) => {
+    setIsSubmittingForm(true);
     dispatch(updateFeedback({ values, feedbackID }))
       .then(unwrapResult)
       .then(() => {
@@ -49,23 +59,44 @@ function EditFeedback() {
       })
       .catch((error) => {
         toast.error(error);
-        setSubmitting(false);
+        setIsSubmittingForm(false);
       });
+  };
+
+  const deleteFeedbackItem = () => {
+    setIsSubmittingForm(true);
+    dispatch(deleteFeedback(feedbackID))
+      .then(unwrapResult)
+      .then(() => {
+        toast.success('Feedback deleted');
+        navigate('/');
+      })
+      .catch((error) => {
+        toast.error(error);
+        setIsSubmittingForm(false);
+      });
+  };
+
+  const cancelFeedbackEdit = (resetForm) => {
+    resetForm();
+    navigate(`/feedback/${feedbackID}`);
   };
 
   return (
     <FormContainer>
       <main>
-        <BackButton>Go Back</BackButton>
-        <FormCard icon={IconEditFeedback}>
-          {feedback && (
-            <>
+        {!feedback ? (
+          <p>Loading...</p>
+        ) : (
+          <>
+            <BackButton>Go Back</BackButton>
+            <FormCard icon={IconEditFeedback}>
               <FormHeading>Editing '{feedback.title}'</FormHeading>
               <Formik
                 initialValues={feedback}
                 validationSchema={validationSchema}
-                onSubmit={(values, { setSubmitting }) => onSubmit(values, setSubmitting)}>
-                {({ isSubmitting, resetForm }) => {
+                onSubmit={(values) => onSubmit(values)}>
+                {({ resetForm }) => {
                   return (
                     <Form>
                       <div className="field-wrap">
@@ -109,35 +140,21 @@ function EditFeedback() {
                         />
                       </div>
                       <FormBottom>
-                        <Button type="submit" className="submit-btn" disabled={isSubmitting}>
+                        <Button type="submit" className="submit-btn" disabled={isSubmittingForm}>
                           Save Changes
                         </Button>
                         <Button
                           variant="tertiary"
                           className="cancel-btn"
-                          onClick={() => {
-                            resetForm();
-                            navigate(`/feedback/${feedbackID}`);
-                          }}>
+                          disabled={isSubmittingForm}
+                          onClick={() => cancelFeedbackEdit(resetForm)}>
                           Cancel
                         </Button>
                         <Button
                           variant="warning"
                           className="delete-btn"
-                          disabled={isDeleting}
-                          onClick={() => {
-                            setIsDeleting(true);
-                            dispatch(deleteFeedback(feedbackID))
-                              .then(unwrapResult)
-                              .then(() => {
-                                toast.success('Feedback deleted');
-                                navigate('/');
-                              })
-                              .catch((error) => {
-                                toast.error(error);
-                                setIsDeleting(false);
-                              });
-                          }}>
+                          disabled={isSubmittingForm}
+                          onClick={deleteFeedbackItem}>
                           Delete
                         </Button>
                       </FormBottom>
@@ -145,9 +162,9 @@ function EditFeedback() {
                   );
                 }}
               </Formik>
-            </>
-          )}
-        </FormCard>
+            </FormCard>
+          </>
+        )}
       </main>
     </FormContainer>
   );

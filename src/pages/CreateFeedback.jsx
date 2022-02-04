@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import { Formik, Form } from 'formik';
 import * as Yup from 'yup';
 import { useDispatch } from 'react-redux';
@@ -29,10 +30,12 @@ const validationSchema = Yup.object({
 });
 
 function CreateFeedback() {
+  const [isSubmittingForm, setIsSubmittingForm] = useState(false);
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
-  const onSubmit = ({ title, category, details }, setSubmitting) => {
+  const onSubmit = ({ title, category, details }) => {
+    setIsSubmittingForm(true);
     dispatch(createFeedback({ title, category, details, status: 'planned', upvotes: [] }))
       .then(unwrapResult)
       .then(() => {
@@ -41,8 +44,13 @@ function CreateFeedback() {
       })
       .catch((error) => {
         toast.error(error);
-        setSubmitting(false);
+        setIsSubmittingForm(false);
       });
+  };
+
+  const cancelCreateForm = (resetForm) => {
+    resetForm();
+    navigate('/');
   };
 
   return (
@@ -54,8 +62,8 @@ function CreateFeedback() {
           <Formik
             initialValues={initialValues}
             validationSchema={validationSchema}
-            onSubmit={(values, { setSubmitting }) => onSubmit(values, setSubmitting)}>
-            {({ isSubmitting, resetForm }) => {
+            onSubmit={(values) => onSubmit(values)}>
+            {({ resetForm }) => {
               return (
                 <Form>
                   <div className="field-wrap">
@@ -88,16 +96,14 @@ function CreateFeedback() {
                     />
                   </div>
                   <FormBottom>
-                    <Button type="submit" className="submit-btn" disabled={isSubmitting}>
+                    <Button type="submit" className="submit-btn" disabled={isSubmittingForm}>
                       Add Feedback
                     </Button>
                     <Button
                       variant="tertiary"
                       className="cancel-btn"
-                      onClick={() => {
-                        resetForm();
-                        navigate('/');
-                      }}>
+                      disabled={isSubmittingForm}
+                      onClick={() => cancelCreateForm(resetForm)}>
                       Cancel
                     </Button>
                   </FormBottom>

@@ -1,9 +1,14 @@
 import { createSlice } from '@reduxjs/toolkit';
 
-import { fetchFeedbackList, updateFeedback, deleteFeedback } from './feedbackListThunk';
+import {
+  createFeedback,
+  fetchFeedbackList,
+  updateFeedback,
+  deleteFeedback
+} from './feedbackListThunk';
 
 const initialState = {
-  isLoading: false,
+  isLoading: true,
   feedbackList: []
 };
 
@@ -12,12 +17,15 @@ const feedbackListSlice = createSlice({
   initialState,
   reducers: {},
   extraReducers: {
+    [createFeedback.fulfilled]: (state, { payload }) => {
+      state.feedbackList.unshift(payload);
+    },
     [fetchFeedbackList.pending]: (state) => {
       state.isLoading = true;
     },
     [fetchFeedbackList.fulfilled]: (state, { payload }) => {
-      state.isLoading = false;
       state.feedbackList = payload;
+      state.isLoading = false;
     },
     [fetchFeedbackList.rejected]: (state) => {
       state.isLoading = false;
