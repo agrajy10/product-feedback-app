@@ -1,4 +1,7 @@
+import { useState, useEffect } from 'react';
+import { useParams } from 'react-router-dom';
 import styled from 'styled-components';
+import { useSelector } from 'react-redux';
 
 import Container from '../layout/Container';
 import BackButton from '../components/BackButton';
@@ -15,16 +18,33 @@ const DetailsTop = styled.div`
 `;
 
 function FeedbackDetails() {
+  const [feedback, setFeedback] = useState(null);
+  const { feedbackList } = useSelector((state) => state.feedbackList);
+  const { feedbackID } = useParams();
+
+  useEffect(() => {
+    const [feedbackData] = feedbackList.filter(
+      (feedbackListItem) => feedbackListItem.id === feedbackID
+    );
+    setFeedback(feedbackData);
+  }, [feedbackID]);
+
   return (
     <Container>
       <main>
         <DetailsTop>
           <BackButton>Go Back</BackButton>
-          <Button variant="secondary">Edit Feedback</Button>
+          <Button variant="secondary" href={`/edit-feedback/${feedbackID}`}>
+            Edit Feedback
+          </Button>
         </DetailsTop>
-        <FeedbackItem titleTag="h1" />
-        <Comments />
-        <CommentForm />
+        {feedback && (
+          <>
+            <FeedbackItem titleTag="h1" id={feedbackID} {...feedback.data} />
+            {/* <Comments /> */}
+            {/* <CommentForm /> */}
+          </>
+        )}
       </main>
     </Container>
   );

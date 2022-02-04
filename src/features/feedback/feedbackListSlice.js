@@ -4,7 +4,8 @@ import { fetchFeedbackList } from './feedbackListThunk';
 
 const initialState = {
   isLoading: false,
-  feedbackList: []
+  feedbackList: [],
+  feedback: null
 };
 
 const feedbackListSlice = createSlice({
