@@ -39,7 +39,7 @@ const UserDisplayName = styled.p`
   font-size: 15px;
   font-weight: 700;
   margin: 0;
-  color: ${({ theme }) => theme.text.body};
+  color: ${({ theme }) => theme.color};
   text-align: center;
 `;
 
@@ -47,7 +47,7 @@ const UserEmail = styled.p`
   font-size: 13px;
   text-align: center;
   margin: 0 0 10px 0;
-  color: ${({ theme }) => theme.text.color1};
+  color: ${({ theme }) => theme.color};
 `;
 
 function UserCard() {
