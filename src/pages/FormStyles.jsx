@@ -27,9 +27,13 @@ export const FormBottom = styled.div`
   @media (min-width: ${breakpoints.md}px) {
     display: flex;
     flex-direction: row-reverse;
-    .cancel-btn {
+    .cancel-btn,
+    .delete-btn {
       min-width: unset;
       padding: 12px 24px;
+    }
+    .delete-btn {
+      margin-right: auto;
     }
   }
 `;

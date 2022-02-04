@@ -1,11 +1,10 @@
 import { createSlice } from '@reduxjs/toolkit';
 
-import { fetchFeedbackList } from './feedbackListThunk';
+import { fetchFeedbackList, updateFeedback, deleteFeedback } from './feedbackListThunk';
 
 const initialState = {
   isLoading: false,
-  feedbackList: [],
-  feedback: null
+  feedbackList: []
 };
 
 const feedbackListSlice = createSlice({
@@ -22,6 +21,19 @@ const feedbackListSlice = createSlice({
     },
     [fetchFeedbackList.rejected]: (state) => {
       state.isLoading = false;
+    },
+    [updateFeedback.fulfilled]: (state, { payload }) => {
+      const updatedList = state.feedbackList.map((item) => {
+        if (item.id === payload.id) {
+          return payload;
+        }
+        return item;
+      });
+      state.feedbackList = updatedList;
+    },
+    [deleteFeedback.fulfilled]: (state, { payload }) => {
+      const updatedList = state.feedbackList.filter((item) => item.id !== payload);
+      state.feedbackList = updatedList;
     }
   }
 });

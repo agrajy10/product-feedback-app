@@ -19,15 +19,17 @@ const DetailsTop = styled.div`
 
 function FeedbackDetails() {
   const [feedback, setFeedback] = useState(null);
-  const { feedbackList } = useSelector((state) => state.feedbackList);
+  const { isLoading, feedbackList } = useSelector((state) => state.feedbackList);
   const { feedbackID } = useParams();
 
   useEffect(() => {
-    const [feedbackData] = feedbackList.filter(
-      (feedbackListItem) => feedbackListItem.id === feedbackID
-    );
-    setFeedback(feedbackData);
-  }, [feedbackID]);
+    if (!isLoading) {
+      const [feedbackData] = feedbackList.filter(
+        (feedbackListItem) => feedbackListItem.id === feedbackID
+      );
+      setFeedback(feedbackData);
+    }
+  }, [feedbackID, isLoading]);
 
   return (
     <Container>

@@ -1,5 +1,5 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
-import { collection, addDoc, getDocs } from 'firebase/firestore';
+import { collection, addDoc, getDocs, updateDoc, doc, deleteDoc } from 'firebase/firestore';
 
 import { db, auth } from '../../firebase-config';
 
@@ -32,3 +32,27 @@ export const fetchFeedbackList = createAsyncThunk('feedbackList/fetchFeedbackLis
     throw error.message;
   }
 });
+
+export const updateFeedback = createAsyncThunk(
+  'feedbackList/updateFeedback',
+  async ({ values, feedbackID }) => {
+    try {
+      await updateDoc(doc(db, 'feedback', feedbackID), values);
+      return { id: feedbackID, data: values };
+    } catch (error) {
+      throw error.message;
+    }
+  }
+);
+
+export const deleteFeedback = createAsyncThunk(
+  'feedbackList/deleteFeedback',
+  async (feedbackID) => {
+    try {
+      await deleteDoc(doc(db, 'feedback', feedbackID));
+      return feedbackID;
+    } catch (error) {
+      throw error.message;
+    }
+  }
+);

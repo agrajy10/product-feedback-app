@@ -76,15 +76,6 @@ const FeedbackListWrapper = styled.div`
 function Home() {
   const { width } = useWindowSize();
   const { isLoading, feedbackList } = useSelector((state) => state.feedbackList);
-  const dispatch = useDispatch();
-
-  useEffect(() => {
-    dispatch(fetchFeedbackList())
-      .then(unwrapResult)
-      .catch((error) => {
-        toast.error(error);
-      });
-  }, []);
 
   const pageHeader = width <= breakpoints.md ? <MobileHeader /> : <Header />;
 
