@@ -1,6 +1,7 @@
 import { Fragment } from 'react';
 import styled from 'styled-components';
 import { Tab } from '@headlessui/react';
+import { useSelector } from 'react-redux';
 
 import RoadmapList from './RoadmapList';
 
@@ -51,28 +52,48 @@ const TabPanel = styled(Tab.Panel)`
 `;
 
 function RoadmapTabs() {
+  const planned = useSelector((state) =>
+    state.feedbackList.feedbackList.filter((item) => item.status === 'planned')
+  );
+  const inProgress = useSelector((state) =>
+    state.feedbackList.feedbackList.filter((item) => item.status === 'in-progress')
+  );
+  const live = useSelector((state) =>
+    state.feedbackList.feedbackList.filter((item) => item.status === 'live')
+  );
+
   return (
     <Tab.Group>
       <TabList>
         <Tab as={Fragment} className="planned">
-          {({ selected }) => <TabButton selected={selected}>Planned (2)</TabButton>}
+          {({ selected }) => <TabButton selected={selected}>Planned ({planned.length})</TabButton>}
         </Tab>
         <Tab as={Fragment} className="in-progress">
-          {({ selected }) => <TabButton selected={selected}>In Progress (3)</TabButton>}
+          {({ selected }) => (
+            <TabButton selected={selected}>In Progress ({inProgress.length})</TabButton>
+          )}
         </Tab>
         <Tab as={Fragment} className="live">
-          {({ selected }) => <TabButton selected={selected}>Live (1)</TabButton>}
+          {({ selected }) => <TabButton selected={selected}>Live ({live.length})</TabButton>}
         </Tab>
       </TabList>
       <Tab.Panels>
         <TabPanel>
-          <RoadmapList title="Planned (2)" desc="Features currently being planned" />
+          <RoadmapList
+            title={`Planned (${planned.length})`}
+            desc="Features currently being planned"
+            list={planned}
+          />
         </TabPanel>
         <TabPanel>
-          <RoadmapList title="In Progress (3)" desc="Features currently in progress" />
+          <RoadmapList
+            title={`In Progress (${inProgress.length})`}
+            desc="Features currently in progress"
+            list={inProgress}
+          />
         </TabPanel>
         <TabPanel>
-          <RoadmapList title="Live (1)" desc="Features currently live" />
+          <RoadmapList title={`Live (${live.length})`} desc="Features currently live" list={live} />
         </TabPanel>
       </Tab.Panels>
     </Tab.Group>

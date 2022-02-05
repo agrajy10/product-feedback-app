@@ -33,14 +33,18 @@ const Desc = styled.p`
   }
 `;
 
-function RoadmapList({ title, desc }) {
+function RoadmapList({ title, desc, list }) {
   return (
     <div>
       <Title>{title}</Title>
       <Desc>{desc}</Desc>
-      <RoadmapListWrapper>
-        <RoadmapItem status="live" />
-      </RoadmapListWrapper>
+      {list.length > 0 && (
+        <RoadmapListWrapper>
+          {list.map(({ id, ...data }) => {
+            return <RoadmapItem key={id} id={id} {...data} />;
+          })}
+        </RoadmapListWrapper>
+      )}
     </div>
   );
 }

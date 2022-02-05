@@ -99,18 +99,18 @@ const CommentCount = styled.span`
   }
 `;
 
-function RoadmapItem({ className, status }) {
+function RoadmapItem({ className, title, details, category, upvotes, status }) {
   const statusText = status === 'in-progress' ? 'In progress' : status;
 
   return (
     <Wrapper className={className} status={status === 'in-progress' ? 'inProgress' : status}>
       <Status status={status === 'in-progress' ? 'inProgress' : status}>{statusText}</Status>
-      <FeedbackTitle>Add tags for solutions</FeedbackTitle>
-      <FeedbackDesc>Easier to search for solutions based on a specific stack.</FeedbackDesc>
-      <FeedbackCategory>Enhancement</FeedbackCategory>
+      <FeedbackTitle>{title}</FeedbackTitle>
+      <FeedbackDesc>{details}</FeedbackDesc>
+      <FeedbackCategory>{category}</FeedbackCategory>
       <Footer>
-        <FeedbackUpvoteButton />
-        <CommentCount>2</CommentCount>
+        <FeedbackUpvoteButton upvotes={upvotes.length} />
+        <CommentCount>0</CommentCount>
       </Footer>
     </Wrapper>
   );
