@@ -81,13 +81,15 @@ const RoadMapList = styled.ul`
 `;
 
 function RoadMapCard() {
-  const feedbackList = useSelector((state) => state.feedbackList.feedbackList);
-
-  const plannedFeedbackCount = feedbackList.filter((item) => item.status === 'planned').length;
-  const inProgressFeedbackCount = feedbackList.filter(
-    (item) => item.status === 'in-progress'
-  ).length;
-  const liveFeedbackCount = feedbackList.filter((item) => item.status === 'live').length;
+  const planned = useSelector((state) =>
+    state.feedbackList.feedbackList.filter((item) => item.status === 'planned')
+  );
+  const inProgress = useSelector((state) =>
+    state.feedbackList.feedbackList.filter((item) => item.status === 'in-progress')
+  );
+  const live = useSelector((state) =>
+    state.feedbackList.feedbackList.filter((item) => item.status === 'live')
+  );
 
   return (
     <Wrapper>
@@ -99,13 +101,13 @@ function RoadMapCard() {
       </HeadingandLink>
       <RoadMapList>
         <li>
-          Planned <span>{plannedFeedbackCount}</span>
+          Planned <span>{planned.length}</span>
         </li>
         <li>
-          In-Progress <span>{inProgressFeedbackCount}</span>
+          In-Progress <span>{inProgress.length}</span>
         </li>
         <li>
-          Live <span>{liveFeedbackCount}</span>
+          Live <span>{live.length}</span>
         </li>
       </RoadMapList>
     </Wrapper>
