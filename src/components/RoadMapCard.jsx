@@ -1,5 +1,6 @@
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 
 const Wrapper = styled.div`
   background-color: #ffffff;
@@ -80,6 +81,14 @@ const RoadMapList = styled.ul`
 `;
 
 function RoadMapCard() {
+  const feedbackList = useSelector((state) => state.feedbackList.feedbackList);
+
+  const plannedFeedbackCount = feedbackList.filter((item) => item.status === 'planned').length;
+  const inProgressFeedbackCount = feedbackList.filter(
+    (item) => item.status === 'in-progress'
+  ).length;
+  const liveFeedbackCount = feedbackList.filter((item) => item.status === 'live').length;
+
   return (
     <Wrapper>
       <HeadingandLink>
@@ -90,13 +99,13 @@ function RoadMapCard() {
       </HeadingandLink>
       <RoadMapList>
         <li>
-          Planned <span>2</span>
+          Planned <span>{plannedFeedbackCount}</span>
         </li>
         <li>
-          In-Progress <span>3</span>
+          In-Progress <span>{inProgressFeedbackCount}</span>
         </li>
         <li>
-          Live <span>1</span>
+          Live <span>{liveFeedbackCount}</span>
         </li>
       </RoadMapList>
     </Wrapper>
