@@ -97,7 +97,7 @@ function FeedbackItem({ id, title, details, category, upvotes, className, titleT
       <FeedbackDesc>{details}</FeedbackDesc>
       <FeedbackCategory>{category}</FeedbackCategory>
       <Footer>
-        <FeedbackUpvoteButton upvotes={upvotes.length} />
+        <FeedbackUpvoteButton id={id} upvotes={upvotes} />
         <CommentCount>0</CommentCount>
       </Footer>
     </Wrapper>

@@ -1,5 +1,14 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
-import { collection, addDoc, getDocs, doc, updateDoc, deleteDoc } from 'firebase/firestore';
+import {
+  collection,
+  addDoc,
+  getDocs,
+  doc,
+  updateDoc,
+  deleteDoc,
+  arrayUnion,
+  arrayRemove
+} from 'firebase/firestore';
 
 import { db, auth } from '../../firebase-config';
 
@@ -59,6 +68,34 @@ export const deleteFeedback = createAsyncThunk(
     try {
       await deleteDoc(doc(db, 'feedback', feedbackID));
       return feedbackID;
+    } catch (error) {
+      return rejectWithValue(error.message);
+    }
+  }
+);
+
+export const upvoteFeedback = createAsyncThunk(
+  'feedbackList/upvoteFeedback',
+  async ({ feedbackID, userID }, { rejectWithValue }) => {
+    try {
+      await updateDoc(doc(db, 'feedback', feedbackID), {
+        upvotes: arrayUnion(userID)
+      });
+      return { feedbackID, userID };
+    } catch (error) {
+      return rejectWithValue(error.message);
+    }
+  }
+);
+
+export const downvoteFeedback = createAsyncThunk(
+  'feedbackList/downvoteFeedback',
+  async ({ feedbackID, userID }, { rejectWithValue }) => {
+    try {
+      await updateDoc(doc(db, 'feedback', feedbackID), {
+        upvotes: arrayRemove(userID)
+      });
+      return { feedbackID, userID };
     } catch (error) {
       return rejectWithValue(error.message);
     }

@@ -99,7 +99,7 @@ const CommentCount = styled.span`
   }
 `;
 
-function RoadmapItem({ className, title, details, category, upvotes, status }) {
+function RoadmapItem({ id, className, title, details, category, upvotes, status }) {
   const statusText = status === 'in-progress' ? 'In progress' : status;
 
   return (
@@ -109,7 +109,7 @@ function RoadmapItem({ className, title, details, category, upvotes, status }) {
       <FeedbackDesc>{details}</FeedbackDesc>
       <FeedbackCategory>{category}</FeedbackCategory>
       <Footer>
-        <FeedbackUpvoteButton upvotes={upvotes.length} />
+        <FeedbackUpvoteButton upvotes={upvotes} id={id} />
         <CommentCount>0</CommentCount>
       </Footer>
     </Wrapper>

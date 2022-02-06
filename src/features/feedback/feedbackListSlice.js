@@ -4,7 +4,9 @@ import {
   createFeedback,
   fetchFeedbackList,
   updateFeedback,
-  deleteFeedback
+  deleteFeedback,
+  upvoteFeedback,
+  downvoteFeedback
 } from './feedbackListThunk';
 
 const initialState = {
@@ -56,6 +58,27 @@ const feedbackListSlice = createSlice({
     },
     [deleteFeedback.fulfilled]: (state, { payload }) => {
       const updatedList = state.feedbackList.filter((item) => item.id !== payload);
+      state.feedbackList = updatedList;
+      state.filteredFeedbackList = updatedList;
+    },
+    [upvoteFeedback.fulfilled]: (state, { payload }) => {
+      const updatedList = state.feedbackList.map((item) => {
+        if (item.id === payload.feedbackID) {
+          return { ...item, upvotes: [...item.upvotes, payload.userID] };
+        }
+        return item;
+      });
+      state.feedbackList = updatedList;
+      state.filteredFeedbackList = updatedList;
+    },
+    [downvoteFeedback.fulfilled]: (state, { payload }) => {
+      const updatedList = state.feedbackList.map((item) => {
+        if (item.id === payload.feedbackID) {
+          const upvotes = item.upvotes.filter((item) => item !== payload.userID);
+          return { ...item, upvotes };
+        }
+        return item;
+      });
       state.feedbackList = updatedList;
       state.filteredFeedbackList = updatedList;
     }
