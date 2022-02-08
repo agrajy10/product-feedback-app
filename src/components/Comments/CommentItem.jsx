@@ -18,28 +18,11 @@ const CommentBody = styled.p`
   }
 `;
 
-const ReplyButton = styled.button`
-  display: inline-block;
-  position: absolute;
-  top: 5px;
-  right: 0;
-  border: none;
-  background: transparent;
-  font-size: 13px;
-  font-weight: 700;
-  color: #4661e6;
-`;
-
-function CommentItem() {
+function CommentItem({ name, email, comment }) {
   return (
     <Wrapper className="comment-item">
-      <CommentAuthor />
-      <CommentBody>
-        Second this! I do a lot of late night coding and reading. Adding a dark theme can be great
-        for preventing eye strain and the headaches that result. It’s also quite a trend with modern
-        apps and apparently saves battery life.
-      </CommentBody>
-      <ReplyButton type="button">Reply</ReplyButton>
+      <CommentAuthor name={name} email={email} />
+      <CommentBody>{comment}</CommentBody>
     </Wrapper>
   );
 }

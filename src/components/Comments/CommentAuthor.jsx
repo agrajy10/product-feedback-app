@@ -43,14 +43,14 @@ const AuthorUserName = styled.span`
   }
 `;
 
-function CommentAuthor() {
+function CommentAuthor({ name, email }) {
   return (
     <Wrapper>
       <AuthorAvatar>
         <img src={Anne} alt="Anner profile picture" />
       </AuthorAvatar>
-      <AuthorName>Anne Valentine</AuthorName>
-      <AuthorUserName>@annev1990</AuthorUserName>
+      <AuthorName>{name}</AuthorName>
+      <AuthorUserName>{email}</AuthorUserName>
     </Wrapper>
   );
 }

@@ -2,13 +2,11 @@ import 'normalize.css';
 import { useEffect } from 'react';
 import { ThemeProvider } from 'styled-components';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import { ToastContainer, toast } from 'react-toastify';
+import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { useDispatch } from 'react-redux';
-import { unwrapResult } from '@reduxjs/toolkit';
-
-import GlobalStyle from './styles/globalStyles';
-import theme from './styles/theme';
+import { onAuthStateChanged } from 'firebase/auth';
+import { collection, query, onSnapshot } from 'firebase/firestore';
 
 import Home from './pages/Home';
 import FeedbackDetails from './pages/FeedbackDetails';
@@ -20,23 +18,27 @@ import Register from './pages/Register';
 import FrogotPassword from './pages/ForgotPassword';
 import PrivateRoute from './components/PrivateRoute';
 
-import { fetchFeedbackList } from './features/feedback/feedbackListThunk';
+import { loadFeedbackList } from './features/feedback/feedbackListSlice';
 
+import GlobalStyle from './styles/globalStyles';
+import theme from './styles/theme';
 import { setUser } from './features/auth/authSlice';
-import { onAuthStateChanged } from 'firebase/auth';
-import { auth } from './firebase-config';
+import { auth, db } from './firebase-config';
 
 function App() {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(fetchFeedbackList())
-      .then(unwrapResult)
-      .catch((error) => {
-        toast.error(error);
+    const q = query(collection(db, 'feedback'));
+    const firestoreUnsubscribe = onSnapshot(q, (querySnapshot) => {
+      const data = [];
+      querySnapshot.forEach((doc) => {
+        data.push({ id: doc.id, ...doc.data() });
       });
+      dispatch(loadFeedbackList(data));
+    });
 
-    const unSubscribe = onAuthStateChanged(auth, (user) => {
+    const authUnsubscribe = onAuthStateChanged(auth, (user) => {
       if (user) {
         localStorage.setItem('isAuthenticated', true);
         dispatch(setUser(user.toJSON()));
@@ -46,7 +48,10 @@ function App() {
       }
     });
 
-    return () => unSubscribe();
+    return () => {
+      authUnsubscribe();
+      firestoreUnsubscribe();
+    };
   }, []);
 
   return (

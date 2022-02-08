@@ -88,7 +88,16 @@ const CommentCount = styled.span`
   }
 `;
 
-function FeedbackItem({ id, title, details, category, upvotes, className, titleTag = 'h2' }) {
+function FeedbackItem({
+  id,
+  title,
+  details,
+  category,
+  comments,
+  upvotes,
+  className,
+  titleTag = 'h2'
+}) {
   return (
     <Wrapper className={className}>
       <FeedbackTitle as={titleTag}>
@@ -98,7 +107,7 @@ function FeedbackItem({ id, title, details, category, upvotes, className, titleT
       <FeedbackCategory>{category}</FeedbackCategory>
       <Footer>
         <FeedbackUpvoteButton id={id} upvotes={upvotes} />
-        <CommentCount>0</CommentCount>
+        <CommentCount>{comments.length}</CommentCount>
       </Footer>
     </Wrapper>
   );

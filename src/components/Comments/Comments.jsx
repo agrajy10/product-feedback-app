@@ -30,14 +30,18 @@ const Wrapper = styled.div`
   }
 `;
 
-function Comments() {
+function Comments({ comments }) {
+  const commentsHeading = comments.length === 1 ? '1 Comment' : `${comments.length} Comments`;
   return (
     <Wrapper>
-      <h2 className="h3">4 Comments</h2>
-      <CommentItem />
-      <CommentItem />
-      <CommentItem />
-      <CommentItem />
+      <h2 className="h3">{commentsHeading}</h2>
+      {comments.length > 0 ? (
+        comments.map((comment, index) => {
+          return <CommentItem key={index} {...comment} />;
+        })
+      ) : (
+        <p>No comments yet.</p>
+      )}
     </Wrapper>
   );
 }

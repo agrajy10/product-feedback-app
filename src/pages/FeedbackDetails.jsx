@@ -18,6 +18,10 @@ const DetailsTop = styled.div`
   padding: 0 0 24px 0;
 `;
 
+const LoginButtonWrapper = styled.div`
+  text-align: center;
+`;
+
 function FeedbackDetails() {
   const [feedback, setFeedback] = useState(null);
   const { isLoading, feedbackList } = useSelector((state) => state.feedbackList);
@@ -37,7 +41,7 @@ function FeedbackDetails() {
         setFeedback(feedbackData);
       }
     }
-  }, [feedbackID, isLoading]);
+  }, [feedbackID, isLoading, feedbackList]);
 
   return (
     <Container>
@@ -55,6 +59,14 @@ function FeedbackDetails() {
               )}
             </DetailsTop>
             <FeedbackItem titleTag="h1" {...feedback} />
+            <Comments comments={feedback.comments} />
+            {user ? (
+              <CommentForm feedbackID={feedbackID} />
+            ) : (
+              <LoginButtonWrapper>
+                <Button href="/login">Login to comment</Button>
+              </LoginButtonWrapper>
+            )}
           </>
         )}
       </main>

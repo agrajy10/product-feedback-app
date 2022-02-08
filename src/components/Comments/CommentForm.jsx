@@ -1,11 +1,19 @@
+import { useState } from 'react';
 import styled from 'styled-components';
+import { Formik, Form } from 'formik';
+import * as Yup from 'yup';
+import { useDispatch, useSelector } from 'react-redux';
 
 import Button from '../Button';
 import TextAreaField from '../TextAreaField';
 
-import breakpoints from '../../styles/breakpoints';
+import { addComment } from '../../features/feedback/feedbackListThunk';
 
-const FormWrapper = styled.form`
+import breakpoints from '../../styles/breakpoints';
+import { unwrapResult } from '@reduxjs/toolkit';
+import { toast } from 'react-toastify';
+
+const FormWrapper = styled.div`
   background-color: ${({ theme }) => theme.white};
   padding: 24px;
   border-radius: 10px;
@@ -35,19 +43,70 @@ const CharCount = styled.span`
   }
 `;
 
-function CommentForm() {
+const initialValues = {
+  comment: ''
+};
+
+const validationSchema = Yup.object({
+  comment: Yup.string()
+    .max(255, 'Comment cannot be more than 255 character')
+    .required("Can't be empty")
+});
+
+function CommentForm({ feedbackID }) {
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const user = useSelector((state) => state.auth.user);
+  const dispatch = useDispatch();
+
+  const charactersLeft = (charCount) => {
+    return 255 - charCount <= 0 ? '0 Characters left' : `${255 - charCount} Characters left`;
+  };
+
+  const onSubmit = ({ comment }, resetForm) => {
+    setIsSubmitting(true);
+    dispatch(
+      addComment({ name: user.displayName, email: user.email, comment: comment, feedbackID })
+    )
+      .then(unwrapResult)
+      .then(() => {
+        resetForm();
+      })
+      .catch((error) => {
+        toast.error(error);
+      })
+      .finally(() => {
+        setIsSubmitting(false);
+      });
+  };
+
   return (
     <FormWrapper>
       <h2 className="h3">Add comment</h2>
-      <TextAreaField
-        aria-label="Enter your comment"
-        placeholder="Type your comment here"
-        name="comment"
-      />
-      <FormBottom>
-        <CharCount>250 Characters left</CharCount>
-        <Button type="submit">Post Comment</Button>
-      </FormBottom>
+      <Formik
+        initialValues={initialValues}
+        validationSchema={validationSchema}
+        onSubmit={(values, { resetForm }) => {
+          onSubmit(values, resetForm);
+        }}>
+        {({ values }) => {
+          return (
+            <Form>
+              <TextAreaField
+                aria-label="Enter your comment"
+                placeholder="Type your comment here"
+                name="comment"
+                id="comment"
+              />
+              <FormBottom>
+                <CharCount>{charactersLeft(values.comment.length)}</CharCount>
+                <Button type="submit" disabled={isSubmitting}>
+                  Post Comment
+                </Button>
+              </FormBottom>
+            </Form>
+          );
+        }}
+      </Formik>
     </FormWrapper>
   );
 }

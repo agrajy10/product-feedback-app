@@ -21,7 +21,8 @@ export const createFeedback = createAsyncThunk(
       status,
       details,
       upvotes,
-      createdBy: auth.currentUser.uid
+      createdBy: auth.currentUser.uid,
+      comments: []
     };
     try {
       const feedbackDocRef = await addDoc(collection(db, 'feedback'), feedback);
@@ -96,6 +97,24 @@ export const downvoteFeedback = createAsyncThunk(
         upvotes: arrayRemove(userID)
       });
       return { feedbackID, userID };
+    } catch (error) {
+      return rejectWithValue(error.message);
+    }
+  }
+);
+
+export const addComment = createAsyncThunk(
+  'feedbackList/addComment',
+  async ({ name, email, comment, feedbackID }, { rejectWithValue }) => {
+    const data = {
+      name,
+      email,
+      comment
+    };
+    try {
+      await updateDoc(doc(db, 'feedback', feedbackID), {
+        comments: arrayUnion(data)
+      });
     } catch (error) {
       return rejectWithValue(error.message);
     }
