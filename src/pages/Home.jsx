@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import { useSelector } from 'react-redux';
 
 import Container from '../layout/Container';
 import Header from '../components/Header';
