@@ -1,8 +1,6 @@
-import { useState } from 'react';
 import { Formik, Form } from 'formik';
 import * as Yup from 'yup';
 import { useDispatch } from 'react-redux';
-import { unwrapResult } from '@reduxjs/toolkit';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 
@@ -30,22 +28,19 @@ const validationSchema = Yup.object({
 });
 
 function CreateFeedback() {
-  const [isSubmittingForm, setIsSubmittingForm] = useState(false);
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
-  const onSubmit = ({ title, category, details }) => {
-    setIsSubmittingForm(true);
-    dispatch(createFeedback({ title, category, details, status: 'planned', upvotes: [] }))
-      .then(unwrapResult)
-      .then(() => {
-        toast.success('Feedback added successfully');
-        navigate('/');
-      })
-      .catch((error) => {
-        toast.error(error);
-        setIsSubmittingForm(false);
-      });
+  const onSubmit = async ({ title, category, details }) => {
+    try {
+      await dispatch(
+        createFeedback({ title, category, details, status: 'planned', upvotes: [] })
+      ).unwrap();
+      toast.success('Feedback added successfully');
+      navigate('/');
+    } catch (error) {
+      toast.error(error);
+    }
   };
 
   const cancelCreateForm = (resetForm) => {
@@ -62,8 +57,8 @@ function CreateFeedback() {
           <Formik
             initialValues={initialValues}
             validationSchema={validationSchema}
-            onSubmit={(values) => onSubmit(values)}>
-            {({ resetForm }) => {
+            onSubmit={onSubmit}>
+            {({ resetForm, isSubmitting }) => {
               return (
                 <Form>
                   <div className="field-wrap">
@@ -96,13 +91,13 @@ function CreateFeedback() {
                     />
                   </div>
                   <FormBottom>
-                    <Button type="submit" className="submit-btn" disabled={isSubmittingForm}>
+                    <Button type="submit" className="submit-btn" disabled={isSubmitting}>
                       Add Feedback
                     </Button>
                     <Button
                       variant="tertiary"
                       className="cancel-btn"
-                      disabled={isSubmittingForm}
+                      disabled={isSubmitting}
                       onClick={() => cancelCreateForm(resetForm)}>
                       Cancel
                     </Button>

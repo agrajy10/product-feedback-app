@@ -1,16 +1,15 @@
 import styled from 'styled-components';
+import { useState } from 'react';
+import { useDispatch } from 'react-redux';
+import { toast } from 'react-toastify';
+import { useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 
 import { downvoteFeedback, upvoteFeedback } from '../features/feedback/feedbackListThunk';
 
 import breakpoints from '../styles/breakpoints';
 
 import { ReactComponent as IconArrowUp } from '../assets/shared/icon-arrow-up.svg';
-import { useState } from 'react';
-import { useDispatch } from 'react-redux';
-import { unwrapResult } from '@reduxjs/toolkit';
-import { toast } from 'react-toastify';
-import { useSelector } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
 
 const Button = styled.button`
   display: inline-flex;
@@ -62,30 +61,27 @@ function UpVoteButton({ id, className, upvotes }) {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const onClick = () => {
+  const onClick = async () => {
     if (!user) {
       navigate('/login');
       return;
     }
-    setIsSubmitting(true);
     if (upvotes.includes(user.uid)) {
-      dispatch(downvoteFeedback({ feedbackID: id, userID: user.uid }))
-        .then(unwrapResult)
-        .catch((error) => {
-          toast.error(error);
-        })
-        .finally(() => {
-          setIsSubmitting(false);
-        });
+      try {
+        await dispatch(downvoteFeedback({ feedbackID: id, userID: user.uid })).unwrap();
+      } catch (error) {
+        toast.error(error);
+      } finally {
+        setIsSubmitting(false);
+      }
     } else {
-      dispatch(upvoteFeedback({ feedbackID: id, userID: user.uid }))
-        .then(unwrapResult)
-        .catch((error) => {
-          toast.error(error);
-        })
-        .finally(() => {
-          setIsSubmitting(false);
-        });
+      try {
+        await dispatch(upvoteFeedback({ feedbackID: id, userID: user.uid })).unwrap();
+      } catch (error) {
+        toast.error(error);
+      } finally {
+        setIsSubmitting(false);
+      }
     }
   };
 

@@ -1,7 +1,6 @@
 import { Formik, Form } from 'formik';
 import * as Yup from 'yup';
 import { useDispatch } from 'react-redux';
-import { unwrapResult } from '@reduxjs/toolkit';
 import { toast } from 'react-toastify';
 
 import { FormContainer, FormHeading, FormBottom } from './FormStyles';
@@ -25,18 +24,13 @@ const validationSchema = Yup.object({
 function FrogotPassword() {
   const dispatch = useDispatch();
 
-  const onSubmit = async ({ email }, setSubmitting) => {
-    dispatch(sendPasswordResetLink({ email }))
-      .then(unwrapResult)
-      .then((message) => {
-        toast.success(message);
-      })
-      .catch(({ message }) => {
-        toast.error(message);
-      })
-      .finally(() => {
-        setSubmitting(false);
-      });
+  const onSubmit = async ({ email }) => {
+    try {
+      const message = await dispatch(sendPasswordResetLink({ email })).unwrap();
+      toast.success(message);
+    } catch (error) {
+      toast.error(error);
+    }
   };
 
   return (
@@ -48,7 +42,7 @@ function FrogotPassword() {
           <Formik
             initialValues={initialValues}
             validationSchema={validationSchema}
-            onSubmit={(values, { setSubmitting }) => onSubmit(values, setSubmitting)}>
+            onSubmit={onSubmit}>
             {({ isSubmitting }) => {
               return (
                 <Form>

@@ -1,8 +1,8 @@
-import { useState } from 'react';
 import styled from 'styled-components';
 import { Formik, Form } from 'formik';
 import * as Yup from 'yup';
 import { useDispatch, useSelector } from 'react-redux';
+import { toast } from 'react-toastify';
 
 import Button from '../Button';
 import TextAreaField from '../TextAreaField';
@@ -10,8 +10,6 @@ import TextAreaField from '../TextAreaField';
 import { addComment } from '../../features/feedback/feedbackListThunk';
 
 import breakpoints from '../../styles/breakpoints';
-import { unwrapResult } from '@reduxjs/toolkit';
-import { toast } from 'react-toastify';
 
 const FormWrapper = styled.div`
   background-color: ${({ theme }) => theme.white};
@@ -54,7 +52,6 @@ const validationSchema = Yup.object({
 });
 
 function CommentForm({ feedbackID }) {
-  const [isSubmitting, setIsSubmitting] = useState(false);
   const user = useSelector((state) => state.auth.user);
   const dispatch = useDispatch();
 
@@ -62,21 +59,15 @@ function CommentForm({ feedbackID }) {
     return 255 - charCount <= 0 ? '0 Characters left' : `${255 - charCount} Characters left`;
   };
 
-  const onSubmit = ({ comment }, resetForm) => {
-    setIsSubmitting(true);
-    dispatch(
-      addComment({ name: user.displayName, email: user.email, comment: comment, feedbackID })
-    )
-      .then(unwrapResult)
-      .then(() => {
-        resetForm();
-      })
-      .catch((error) => {
-        toast.error(error);
-      })
-      .finally(() => {
-        setIsSubmitting(false);
-      });
+  const onSubmit = async ({ comment }, resetForm) => {
+    try {
+      await dispatch(
+        addComment({ name: user.displayName, email: user.email, comment: comment, feedbackID })
+      ).unwrap();
+      resetForm();
+    } catch (error) {
+      toast.error(error);
+    }
   };
 
   return (
@@ -88,7 +79,7 @@ function CommentForm({ feedbackID }) {
         onSubmit={(values, { resetForm }) => {
           onSubmit(values, resetForm);
         }}>
-        {({ values }) => {
+        {({ values, isSubmitting }) => {
           return (
             <Form>
               <TextAreaField
@@ -96,6 +87,7 @@ function CommentForm({ feedbackID }) {
                 placeholder="Type your comment here"
                 name="comment"
                 id="comment"
+                disabled={isSubmitting}
               />
               <FormBottom>
                 <CharCount>{charactersLeft(values.comment.length)}</CharCount>

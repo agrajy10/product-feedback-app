@@ -2,7 +2,6 @@ import { Link, useNavigate } from 'react-router-dom';
 import { Formik, Form } from 'formik';
 import * as Yup from 'yup';
 import { useDispatch } from 'react-redux';
-import { unwrapResult } from '@reduxjs/toolkit';
 import { toast } from 'react-toastify';
 
 import { FormContainer, FormHeading, FormBottom, FormLinks } from './FormStyles';
@@ -35,17 +34,14 @@ function Register() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
-  const onSubmit = ({ fullname, email, password }, setSubmitting) => {
-    dispatch(registerUser({ fullname, email, password }))
-      .then(unwrapResult)
-      .then(() => {
-        toast.success('Registered successfully');
-        navigate('/');
-      })
-      .catch(({ message }) => {
-        toast.error(message);
-        setSubmitting(false);
-      });
+  const onSubmit = async ({ fullname, email, password }) => {
+    try {
+      await dispatch(registerUser({ fullname, email, password })).unwrap();
+      toast.success('Registered successfully');
+      navigate('/');
+    } catch (error) {
+      toast.error(error);
+    }
   };
 
   return (
@@ -57,7 +53,7 @@ function Register() {
           <Formik
             initialValues={initialValues}
             validationSchema={validationSchema}
-            onSubmit={(values, { setSubmitting }) => onSubmit(values, setSubmitting)}>
+            onSubmit={onSubmit}>
             {({ isSubmitting }) => {
               return (
                 <Form>
