@@ -91,7 +91,7 @@ function UpVoteButton({ id, className, upvotes }) {
       type="button"
       disabled={isSubmitting}
       onClick={onClick}>
-      <IconArrowUp />
+      <IconArrowUp aria-hidden="true" />
       {upvotes.length}
     </Button>
   );

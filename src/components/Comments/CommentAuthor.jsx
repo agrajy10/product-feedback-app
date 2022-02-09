@@ -32,15 +32,6 @@ const AuthorName = styled.h3`
   }
 `;
 
-const AuthorUserName = styled.span`
-  display: block;
-  font-size: 13px;
-  color: ${({ theme }) => theme.text.color1};
-  @media (min-width: ${breakpoints.md}px) {
-    font-size: 14px;
-  }
-`;
-
 function CommentAuthor({ name, email, profilePhoto }) {
   return (
     <Wrapper>
@@ -48,7 +39,6 @@ function CommentAuthor({ name, email, profilePhoto }) {
         <img src={profilePhoto} alt="Anner profile picture" />
       </AuthorAvatar>
       <AuthorName>{name}</AuthorName>
-      <AuthorUserName>{email}</AuthorUserName>
     </Wrapper>
   );
 }

@@ -14,7 +14,7 @@ const Wrapper = styled.div`
   gap: 2px;
 `;
 
-const Label = styled.label`
+const Label = styled.span`
   flex: 0 0 auto;
   font-size: 13px;
   color: #f2f4fe;
@@ -22,14 +22,15 @@ const Label = styled.label`
 `;
 
 const customStyles = {
-  control: (provided) => ({
+  control: (provided, state) => ({
     ...provided,
     backgroundColor: '#373F68',
     border: 'none',
     height: '48px',
     padding: '0',
     fontSize: '15px',
-    boxShadow: 'none'
+    boxShadow: 'none',
+    opacity: state.isFocused ? 0.75 : 1
   }),
   singleValue: (provided) => ({
     ...provided,
@@ -66,7 +67,7 @@ const customStyles = {
     lineHeight: 1,
     borderTop: '1px solid rgba(151,151,151,0.15)',
     padding: '12px 24px',
-    color: state.isSelected ? '#AD1FEA' : '#647196',
+    color: state.isSelected || state.isFocused ? '#AD1FEA' : '#647196',
     backgroundColor: '#FFFFFF',
     backgroundImage: state.isSelected ? `url(${IconCheck})` : '',
     backgroundPosition: 'calc(100% - 24px) center',
@@ -114,9 +115,9 @@ function SortBy() {
 
   return (
     <Wrapper>
-      <Label htmlFor="sortby">Sort By :</Label>
+      <Label id="sortby">Sort By :</Label>
       <Select
-        id="sortby"
+        aria-labelledby="sortby"
         value={defaultValue(options, value)}
         options={options}
         onChange={(value) => setValue(value.value)}

@@ -4,7 +4,7 @@ import CommentAuthor from './CommentAuthor';
 
 import breakpoints from '../../styles/breakpoints';
 
-const Wrapper = styled.div`
+const Wrapper = styled.article`
   position: relative;
 `;
 

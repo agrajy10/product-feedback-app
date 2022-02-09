@@ -4,7 +4,7 @@ import CommentItem from './CommentItem';
 
 import breakpoints from '../../styles/breakpoints';
 
-const Wrapper = styled.div`
+const Wrapper = styled.section`
   background-color: ${({ theme }) => theme.white};
   padding: 24px;
   border-radius: 10px;

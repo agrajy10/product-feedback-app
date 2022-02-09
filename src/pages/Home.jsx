@@ -88,15 +88,17 @@ function Home() {
           <SortBy />
           <AddFeedbackButton href="/create-feedback">+ Add Feedback</AddFeedbackButton>
         </SortByWrapper>
-        {isLoading && <p>Loading....</p>}
-        {!isLoading && filteredFeedbackList.length == 0 && <NoFeedback />}
-        {!isLoading && filteredFeedbackList.length > 0 && (
-          <FeedbackListWrapper>
-            {filteredFeedbackList.map(({ id, ...data }) => {
-              return <FeedbackItem key={id} id={id} {...data} />;
-            })}
-          </FeedbackListWrapper>
-        )}
+        <div aria-live="polite">
+          {isLoading && <p>Loading....</p>}
+          {!isLoading && filteredFeedbackList.length == 0 && <NoFeedback />}
+          {!isLoading && filteredFeedbackList.length > 0 && (
+            <FeedbackListWrapper>
+              {filteredFeedbackList.map(({ id, ...data }) => {
+                return <FeedbackItem key={id} id={id} {...data} />;
+              })}
+            </FeedbackListWrapper>
+          )}
+        </div>
       </main>
     </HomeContainer>
   );

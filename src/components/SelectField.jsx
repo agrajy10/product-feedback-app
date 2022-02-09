@@ -67,7 +67,7 @@ const customStyles = {
     lineHeight: 1,
     borderTop: '1px solid rgba(151,151,151,0.15)',
     padding: '12px 24px',
-    color: state.isSelected ? '#AD1FEA' : '#647196',
+    color: state.isSelected || state.isFocused ? '#AD1FEA' : '#647196',
     backgroundColor: '#FFFFFF',
     backgroundImage: state.isSelected ? `url(${IconCheck})` : '',
     backgroundPosition: 'calc(100% - 24px) center',

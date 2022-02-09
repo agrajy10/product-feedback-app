@@ -31,7 +31,7 @@ const Button = styled(Link)`
 
 function BackButton({ children, variant = 'light' }) {
   return (
-    <Button to="/" variant={variant}>
+    <Button to="/" aria-label="Go back to homepage" variant={variant}>
       <IconArrowLeft />
       {children}
     </Button>

@@ -21,25 +21,40 @@ const CategoriesList = styled.ul`
   line-height: 1;
 `;
 
-const Category = styled.button`
-  display: inline-block;
-  font-size: 13px;
-  font-weight: 600;
-  color: ${({ theme }) => theme.category.color};
-  background-color: ${({ theme }) => theme.category.bg};
-  white-space: nowrap;
-  padding: 6px 16px;
-  border: none;
-  border-radius: 10px;
-  cursor: pointer;
-  user-select: none;
-  &:hover {
+const Category = styled.label`
+  position: relative;
+  display: block;
+  input {
+    position: absolute;
+    top: 0;
+    left: 0;
+    opacity: 0;
+  }
+  span {
+    display: block;
+    text-align: center;
+    font-size: 13px;
+    font-weight: 600;
+    color: ${({ theme }) => theme.category.color};
+    background-color: ${({ theme }) => theme.category.bg};
+    white-space: nowrap;
+    padding: 6px 16px;
+    border: 1px solid ${({ theme }) => theme.category.bg};
+    border-radius: 10px;
+    cursor: pointer;
+    user-select: none;
+  }
+  span:hover {
     color: ${({ theme }) => theme.category.hover.color};
     background-color: ${({ theme }) => theme.category.hover.bg};
   }
-  &.active {
+  input:checked + span {
     color: ${({ theme }) => theme.category.active.color};
     background-color: ${({ theme }) => theme.category.active.bg};
+    border-color: ${({ theme }) => theme.category.active.bg};
+  }
+  input:focus + span {
+    outline: 2px dashed ${({ theme }) => theme.category.active.bg};
   }
 `;
 
@@ -48,19 +63,28 @@ const categories = ['All', 'UI', 'UX', 'Enhancement', 'Feature', 'Bug'];
 function CategoriesCard() {
   const activeCategory = useSelector((state) => state.feedbackList.activeCategory);
   const dispatch = useDispatch();
+
+  const onChange = (e) => dispatch(filterFeedbackList(e.target.value));
+
   return (
     <Wrapper>
-      <CategoriesList>
+      <CategoriesList
+        role="radiogroup"
+        aria-label="Filter feedback by categories"
+        aria-activedescendant={activeCategory}>
         {categories.map((category, index) => {
           return (
-            <li key={index}>
-              <Category
-                type="button"
-                onClick={() => dispatch(filterFeedbackList(category))}
-                className={category === activeCategory ? 'active' : ''}>
-                {category}
-              </Category>
-            </li>
+            <Category key={index} htmlFor={`category-${index}`}>
+              <input
+                type="radio"
+                name="category"
+                id={`category-${index}`}
+                value={category}
+                checked={activeCategory === category}
+                onChange={onChange}
+              />
+              <span>{category}</span>
+            </Category>
           );
         })}
       </CategoriesList>
