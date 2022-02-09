@@ -2,7 +2,6 @@ import 'normalize.css';
 import { useEffect } from 'react';
 import { ThemeProvider } from 'styled-components';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { useDispatch } from 'react-redux';
 import { onAuthStateChanged } from 'firebase/auth';
@@ -17,6 +16,7 @@ import Login from './pages/Login';
 import Register from './pages/Register';
 import FrogotPassword from './pages/ForgotPassword';
 import PrivateRoute from './components/PrivateRoute';
+import StyledToastcontainer from './components/StyledToastContainer';
 
 import { loadFeedbackList } from './features/feedback/feedbackListSlice';
 
@@ -74,7 +74,12 @@ function App() {
             <Route path="/forgot-password" element={<FrogotPassword />} />
           </Routes>
         </Router>
-        <ToastContainer />
+        <StyledToastcontainer
+          autoClose={1500}
+          closeButton={false}
+          hideProgressBar={true}
+          position="top-center"
+        />
       </ThemeProvider>
     </div>
   );
