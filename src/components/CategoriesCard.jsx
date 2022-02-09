@@ -43,7 +43,7 @@ const Category = styled.button`
   }
 `;
 
-const categories = ['All', 'UI', 'UX', 'Enhacement', 'Feature', 'Bug'];
+const categories = ['All', 'UI', 'UX', 'Enhancement', 'Feature', 'Bug'];
 
 function CategoriesCard() {
   const activeCategory = useSelector((state) => state.feedbackList.activeCategory);

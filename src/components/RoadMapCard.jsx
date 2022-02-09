@@ -39,7 +39,7 @@ const RoadMapList = styled.ul`
     position: relative;
     padding: 0 22px;
     font-size: 16px;
-    color: ${({ theme }) => theme.color};
+    color: ${({ theme }) => theme.text.color1};
     margin-bottom: 12px;
     &::before {
       content: '';
