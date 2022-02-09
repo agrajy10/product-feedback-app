@@ -18,7 +18,7 @@ import IconNewFeedback from '../assets/shared/icon-new-feedback.svg';
 
 const initialValues = {
   title: '',
-  category: 'feature',
+  category: 'Feature',
   details: ''
 };
 
@@ -76,6 +76,7 @@ function CreateFeedback() {
                       label="Category"
                       labelDesc="Choose a category for your feedback">
                       <option value="Feature">Feature</option>
+                      <option value="Bug">Bug</option>
                       <option value="Enhancement">Enhancement</option>
                       <option value="UI">UI</option>
                       <option value="UX">UX</option>
