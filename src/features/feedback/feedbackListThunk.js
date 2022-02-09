@@ -105,11 +105,12 @@ export const downvoteFeedback = createAsyncThunk(
 
 export const addComment = createAsyncThunk(
   'feedbackList/addComment',
-  async ({ name, email, comment, feedbackID }, { rejectWithValue }) => {
+  async ({ name, email, comment, profilePhoto, feedbackID }, { rejectWithValue }) => {
     const data = {
       name,
       email,
-      comment
+      comment,
+      profilePhoto
     };
     try {
       await updateDoc(doc(db, 'feedback', feedbackID), {

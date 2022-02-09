@@ -62,7 +62,13 @@ function CommentForm({ feedbackID }) {
   const onSubmit = async ({ comment }, resetForm) => {
     try {
       await dispatch(
-        addComment({ name: user.displayName, email: user.email, comment: comment, feedbackID })
+        addComment({
+          name: user.displayName,
+          profilePhoto: user.photoURL,
+          email: user.email,
+          comment: comment,
+          feedbackID
+        })
       ).unwrap();
       resetForm();
     } catch (error) {

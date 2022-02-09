@@ -5,8 +5,6 @@ import Button from './Button';
 
 import { logoutUser } from '../features/auth/authThunk';
 
-import Avatar from '../assets/user-images/image-ryan.jpg';
-
 const Wrapper = styled.div`
   background-color: #ffffff;
   padding: 24px;
@@ -59,7 +57,7 @@ function UserCard() {
       {user ? (
         <>
           <UserAvatar>
-            <img src={Avatar} alt={`Profile picture of ${user.displayName}`} />
+            <img src={user.photoURL} alt={`Profile picture of ${user.displayName}`} />
           </UserAvatar>
           <UserDisplayName>{user.displayName}</UserDisplayName>
           <UserEmail>{user.email}</UserEmail>

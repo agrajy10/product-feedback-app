@@ -2,8 +2,6 @@ import styled from 'styled-components';
 
 import breakpoints from '../../styles/breakpoints';
 
-import Anne from '../../assets/user-images/image-anne.jpg';
-
 const Wrapper = styled.div`
   position: relative;
   padding-left: 56px;
@@ -43,11 +41,11 @@ const AuthorUserName = styled.span`
   }
 `;
 
-function CommentAuthor({ name, email }) {
+function CommentAuthor({ name, email, profilePhoto }) {
   return (
     <Wrapper>
       <AuthorAvatar>
-        <img src={Anne} alt="Anner profile picture" />
+        <img src={profilePhoto} alt="Anner profile picture" />
       </AuthorAvatar>
       <AuthorName>{name}</AuthorName>
       <AuthorUserName>{email}</AuthorUserName>

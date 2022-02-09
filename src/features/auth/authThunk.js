@@ -16,7 +16,8 @@ export const registerUser = createAsyncThunk(
     try {
       await createUserWithEmailAndPassword(auth, email, password);
       await updateProfile(auth.currentUser, {
-        displayName: fullname
+        displayName: fullname,
+        photoURL: `https://avatars.dicebear.com/api/initials/${fullname}.svg`
       });
       await setDoc(doc(db, 'users', auth.currentUser.uid), { fullname, email });
       return auth.currentUser.toJSON();

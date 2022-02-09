@@ -18,10 +18,10 @@ const CommentBody = styled.p`
   }
 `;
 
-function CommentItem({ name, email, comment }) {
+function CommentItem({ comment, ...rest }) {
   return (
     <Wrapper className="comment-item">
-      <CommentAuthor name={name} email={email} />
+      <CommentAuthor {...rest} />
       <CommentBody>{comment}</CommentBody>
     </Wrapper>
   );
