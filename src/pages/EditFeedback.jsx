@@ -22,6 +22,44 @@ const validationSchema = Yup.object({
   details: Yup.string().required("Can't be empty")
 });
 
+const categoryOptions = [
+  {
+    value: 'Feature',
+    label: 'Feature'
+  },
+  {
+    value: 'Bug',
+    label: 'Bug'
+  },
+  {
+    value: 'Enhancement',
+    label: 'Enhancement'
+  },
+  {
+    value: 'UI',
+    label: 'UI'
+  },
+  {
+    value: 'UX',
+    label: 'UX'
+  }
+];
+
+const statusOptions = [
+  {
+    value: 'planned',
+    label: 'Planned'
+  },
+  {
+    value: 'in-progress',
+    label: 'In Progress'
+  },
+  {
+    value: 'live',
+    label: 'Live'
+  }
+];
+
 function EditFeedback() {
   const [feedback, setFeedback] = useState(null);
   const { isLoading, feedbackList } = useSelector((state) => state.feedbackList);
@@ -89,7 +127,7 @@ function EditFeedback() {
                 initialValues={feedback}
                 validationSchema={validationSchema}
                 onSubmit={onSubmit}>
-                {({ isSubmitting, resetForm, setSubmitting }) => {
+                {({ isSubmitting, values, setFieldValue, resetForm, setSubmitting }) => {
                   return (
                     <Form>
                       <div className="field-wrap">
@@ -105,23 +143,22 @@ function EditFeedback() {
                           id="category"
                           name="category"
                           label="Category"
-                          labelDesc="Choose a category for your feedback">
-                          <option value="Feature">Feature</option>
-                          <option value="Enhancement">Enhancement</option>
-                          <option value="UI">UI</option>
-                          <option value="UX">UX</option>
-                        </SelectField>
+                          labelDesc="Choose a category for your feedback"
+                          options={categoryOptions}
+                          value={values.category}
+                          onChange={(value) => setFieldValue('category', value.value)}
+                        />
                       </div>
                       <div className="field-wrap">
                         <SelectField
                           id="status"
                           name="status"
                           label="Status"
-                          labelDesc="Changes status of feedback">
-                          <option value="planned">Planned</option>
-                          <option value="in-progress">In Progress</option>
-                          <option value="live">Live</option>
-                        </SelectField>
+                          labelDesc="Changes status of feedback"
+                          options={statusOptions}
+                          value={values.status}
+                          onChange={(value) => setFieldValue('status', value.value)}
+                        />
                       </div>
                       <div className="field-wrap">
                         <TextAreaField

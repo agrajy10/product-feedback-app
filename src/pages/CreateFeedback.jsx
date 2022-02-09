@@ -24,8 +24,32 @@ const initialValues = {
 
 const validationSchema = Yup.object({
   title: Yup.string().required("Can't be emtpy"),
+  category: Yup.string().required("Can't be emtpy"),
   details: Yup.string().required("Can't be empty")
 });
+
+const categoryOptions = [
+  {
+    value: 'Feature',
+    label: 'Feature'
+  },
+  {
+    value: 'Bug',
+    label: 'Bug'
+  },
+  {
+    value: 'Enhancement',
+    label: 'Enhancement'
+  },
+  {
+    value: 'UI',
+    label: 'UI'
+  },
+  {
+    value: 'UX',
+    label: 'UX'
+  }
+];
 
 function CreateFeedback() {
   const navigate = useNavigate();
@@ -58,7 +82,7 @@ function CreateFeedback() {
             initialValues={initialValues}
             validationSchema={validationSchema}
             onSubmit={onSubmit}>
-            {({ resetForm, isSubmitting }) => {
+            {({ resetForm, setFieldValue, values, isSubmitting }) => {
               return (
                 <Form>
                   <div className="field-wrap">
@@ -74,13 +98,11 @@ function CreateFeedback() {
                       id="category"
                       name="category"
                       label="Category"
-                      labelDesc="Choose a category for your feedback">
-                      <option value="Feature">Feature</option>
-                      <option value="Bug">Bug</option>
-                      <option value="Enhancement">Enhancement</option>
-                      <option value="UI">UI</option>
-                      <option value="UX">UX</option>
-                    </SelectField>
+                      labelDesc="Choose a category for your feedback"
+                      options={categoryOptions}
+                      value={values.category}
+                      onChange={(value) => setFieldValue('category', value.value)}
+                    />
                   </div>
                   <div className="field-wrap">
                     <TextAreaField
