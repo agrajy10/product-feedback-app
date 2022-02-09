@@ -1,8 +1,4 @@
-import { useEffect } from 'react';
 import styled from 'styled-components';
-import { useDispatch, useSelector } from 'react-redux';
-import { unwrapResult } from '@reduxjs/toolkit';
-import { toast } from 'react-toastify';
 
 import Container from '../layout/Container';
 import Header from '../components/Header';
@@ -11,8 +7,6 @@ import SortBy from '../components/SortBy';
 import Button from '../components/Button';
 import FeedbackItem from '../components/FeedbackItem';
 import NoFeedback from '../components/NoFeedback';
-
-import { fetchFeedbackList } from '../features/feedback/feedbackListThunk';
 
 import useWindowSize from '../hooks/useWindowSize';
 
