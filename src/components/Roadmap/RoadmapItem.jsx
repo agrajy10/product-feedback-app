@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import { Link } from 'react-router-dom';
 
 import UpVoteButton from '../UpVoteButton';
 
@@ -41,6 +42,13 @@ const FeedbackTitle = styled.h3`
   font-size: 13px;
   letter-spacing: -0.18px;
   margin: 0 0 9px 0;
+  a {
+    color: ${({ theme }) => theme.color};
+    text-decoration: none;
+  }
+  a:hover {
+    color: #4661e6;
+  }
   @media (min-width: ${breakpoints.lg}px) {
     font-size: 18px;
   }
@@ -105,7 +113,9 @@ function RoadmapItem({ id, className, title, details, category, upvotes, comment
   return (
     <Wrapper className={className} status={status === 'in-progress' ? 'inProgress' : status}>
       <Status status={status === 'in-progress' ? 'inProgress' : status}>{statusText}</Status>
-      <FeedbackTitle>{title}</FeedbackTitle>
+      <FeedbackTitle>
+        <Link to={`/feedback/${id}`}>{title}</Link>
+      </FeedbackTitle>
       <FeedbackDesc>{details}</FeedbackDesc>
       <FeedbackCategory>{category}</FeedbackCategory>
       <Footer>

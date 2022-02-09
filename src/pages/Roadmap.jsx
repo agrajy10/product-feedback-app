@@ -48,6 +48,7 @@ const Heading = styled.h1`
 
 function Roadmap() {
   const { width } = useWindowSize();
+
   return (
     <RoadmapContainer>
       <Header>
@@ -55,7 +56,7 @@ function Roadmap() {
           <BackButton variant="dark">Go Back</BackButton>
           <Heading>Roadmap</Heading>
         </div>
-        <Button>+ Add Feedback</Button>
+        <Button href="/create-feedback">+ Add Feedback</Button>
       </Header>
       <main>
         {width <= breakpoints.md && <RoadmapTabs />}
