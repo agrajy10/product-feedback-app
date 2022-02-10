@@ -1,5 +1,5 @@
 {
-  "name": "product-invoice-app",
+  "name": "product-feedback-app",
   "version": "0.0.0",
   "scripts": {
     "dev": "vite",
