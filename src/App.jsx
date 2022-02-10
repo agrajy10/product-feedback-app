@@ -5,7 +5,7 @@ import { Routes, Route, useLocation } from 'react-router-dom';
 import 'react-toastify/dist/ReactToastify.css';
 import { useDispatch } from 'react-redux';
 import { onAuthStateChanged } from 'firebase/auth';
-import { collection, query, onSnapshot, orderBy } from 'firebase/firestore';
+import { collection, query, onSnapshot } from 'firebase/firestore';
 import { AnimatePresence } from 'framer-motion';
 
 import Home from './pages/Home';
@@ -31,7 +31,7 @@ function App() {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    const q = query(collection(db, 'feedback'), orderBy('upvotes', 'desc'));
+    const q = query(collection(db, 'feedback'));
     const firestoreUnsubscribe = onSnapshot(q, (querySnapshot) => {
       const data = [];
       querySnapshot.forEach((doc) => {

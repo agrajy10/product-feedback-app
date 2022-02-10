@@ -13,7 +13,7 @@ const feedbackListSlice = createSlice({
   reducers: {
     loadFeedbackList: (state, { payload }) => {
       state.feedbackList = payload;
-      state.filteredFeedbackList = payload;
+      state.filteredFeedbackList = payload.sort((a, b) => b.upvotes.length - a.upvotes.length);
       state.isLoading = false;
     },
     filterFeedbackList: (state, { payload }) => {
