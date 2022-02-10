@@ -61,12 +61,12 @@ Just like any other project process of this project was same.
 
 - [React](https://reactjs.org/) - JS library
 - [Styled Components](https://styled-components.com/) - For styles
-- [Firebase](https://styled-components.com/) - For database and authentication
-- [Redux-toolkit](https://styled-components.com/) - For state management
-- [Framer motion](https://styled-components.com/) - For animation
-- [Formik](https://styled-components.com/) - For forms
-- [Yup](https://styled-components.com/) - For form validation
-- [Headless ui](https://styled-components.com/) - For accessible components
+- [Firebase](https://firebase.google.com/) - For database and authentication
+- [Redux-toolkit](https://redux-toolkit.js.org/) - For state management
+- [Framer motion](https://www.framer.com/motion/) - For animation
+- [Formik](https://formik.org/) - For forms
+- [Yup](https://github.com/jquense/yup) - For form validation
+- [Headless ui](https://headlessui.dev/) - For accessible components
 
 ### What I learned
 
