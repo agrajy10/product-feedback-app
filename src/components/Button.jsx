@@ -5,8 +5,8 @@ const ButtonEl = styled.button`
   display: inline-block;
   padding: 0.8125rem;
   min-width: 158px;
-  background-color: ${({ variant, theme }) => theme.button[variant].bg};
-  color: ${({ variant, theme }) => theme.button[variant].color};
+  background-color: ${({ $variant, theme }) => theme.button[$variant].bg};
+  color: ${({ $variant, theme }) => theme.button[$variant].color};
   font-weight: 700;
   font-size: 0.875rem;
   line-height: 1;
@@ -15,8 +15,8 @@ const ButtonEl = styled.button`
   cursor: pointer;
   user-select: none;
   &:hover {
-    background-color: ${({ variant, theme }) => theme.button[variant].hover.bg};
-    color: ${({ variant, theme }) => theme.button[variant].hover.color};
+    background-color: ${({ $variant, theme }) => theme.button[$variant].hover.bg};
+    color: ${({ $variant, theme }) => theme.button[$variant].hover.color};
   }
   &:disabled {
     opacity: 0.7;
@@ -28,8 +28,8 @@ const LinkEl = styled(Link)`
   display: inline-block;
   padding: 0.8125rem;
   min-width: 158px;
-  background-color: ${({ variant, theme }) => theme.button[variant].bg};
-  color: ${({ variant, theme }) => theme.button[variant].color};
+  background-color: ${({ $variant, theme }) => theme.button[$variant].bg};
+  color: ${({ $variant, theme }) => theme.button[$variant].color};
   font-weight: 700;
   font-size: 0.875rem;
   line-height: 1;
@@ -40,8 +40,8 @@ const LinkEl = styled(Link)`
   cursor: pointer;
   user-select: none;
   &:hover {
-    background-color: ${({ variant, theme }) => theme.button[variant].hover.bg};
-    color: ${({ variant, theme }) => theme.button[variant].hover.color};
+    background-color: ${({ $variant, theme }) => theme.button[$variant].hover.bg};
+    color: ${({ $variant, theme }) => theme.button[$variant].hover.color};
   }
   &:disabled {
     opacity: 0.7;
@@ -51,11 +51,11 @@ const LinkEl = styled(Link)`
 
 function Button({ href, className, variant = 'primary', type = 'button', children, ...props }) {
   return href ? (
-    <LinkEl to={href} className={className} variant={variant} {...props}>
+    <LinkEl to={href} className={className} $variant={variant} {...props}>
       {children}
     </LinkEl>
   ) : (
-    <ButtonEl type={type} className={className} variant={variant} {...props}>
+    <ButtonEl type={type} className={className} $variant={variant} {...props}>
       {children}
     </ButtonEl>
   );

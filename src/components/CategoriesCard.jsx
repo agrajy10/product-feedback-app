@@ -9,10 +9,7 @@ const Wrapper = styled.div`
   border-radius: 10px;
 `;
 
-const CategoriesList = styled.ul`
-  margin: 0;
-  padding: 0;
-  list-style: none;
+const CategoriesList = styled.div`
   display: flex;
   align-items: center;
   justify-content: flex-start;
@@ -74,11 +71,11 @@ function CategoriesCard() {
         aria-activedescendant={activeCategory}>
         {categories.map((category, index) => {
           return (
-            <Category key={index} htmlFor={`category-${index}`}>
+            <Category key={index} htmlFor={category}>
               <input
                 type="radio"
                 name="category"
-                id={`category-${index}`}
+                id={category}
                 value={category}
                 checked={activeCategory === category}
                 onChange={onChange}

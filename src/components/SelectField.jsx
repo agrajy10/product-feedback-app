@@ -91,9 +91,10 @@ function SelectField({ label, labelDesc, options, value, onChange, id, ...props 
 
   return (
     <>
-      {label && <Label htmlFor={id}>{label}</Label>}
+      {label && <Label id={id}>{label}</Label>}
       {labelDesc && <LabelDesc>{labelDesc}</LabelDesc>}
       <Select
+        aria-labelledby={id}
         styles={customStyles}
         id={id}
         isSearchable={false}
