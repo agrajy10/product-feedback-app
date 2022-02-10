@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import { motion } from 'framer-motion';
 
 import Button from './Button';
 
@@ -32,9 +33,17 @@ const Wrapper = styled.div`
   }
 `;
 
+const containerVariants = {
+  hidden: { opacity: 0, y: 20 },
+  visible: {
+    opacity: 1,
+    y: 0
+  }
+};
+
 function NoFeedback() {
   return (
-    <Wrapper>
+    <Wrapper as={motion.div} variants={containerVariants} initial="hidden" animate="visible">
       <img src={IllustrationEmpty} alt="" />
       <h2 className="h3">There is no feedback yet.</h2>
       <p>

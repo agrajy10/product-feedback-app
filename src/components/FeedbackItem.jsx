@@ -1,3 +1,4 @@
+import React from 'react';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 
@@ -88,29 +89,22 @@ const CommentCount = styled.span`
   }
 `;
 
-function FeedbackItem({
-  id,
-  title,
-  details,
-  category,
-  comments,
-  upvotes,
-  className,
-  titleTag = 'h2'
-}) {
-  return (
-    <Wrapper className={className}>
-      <FeedbackTitle as={titleTag}>
-        <Link to={`/feedback/${id}`}>{title}</Link>
-      </FeedbackTitle>
-      <FeedbackDesc>{details}</FeedbackDesc>
-      <FeedbackCategory>{category}</FeedbackCategory>
-      <Footer>
-        <FeedbackUpvoteButton id={id} upvotes={upvotes} />
-        <CommentCount>{comments.length}</CommentCount>
-      </Footer>
-    </Wrapper>
-  );
-}
+const FeedbackItem = React.forwardRef(
+  ({ id, title, details, category, comments, upvotes, className, titleTag = 'h2' }, ref) => {
+    return (
+      <Wrapper ref={ref} className={className}>
+        <FeedbackTitle as={titleTag}>
+          <Link to={`/feedback/${id}`}>{title}</Link>
+        </FeedbackTitle>
+        <FeedbackDesc>{details}</FeedbackDesc>
+        <FeedbackCategory>{category}</FeedbackCategory>
+        <Footer>
+          <FeedbackUpvoteButton id={id} upvotes={upvotes} />
+          <CommentCount>{comments.length}</CommentCount>
+        </Footer>
+      </Wrapper>
+    );
+  }
+);
 
 export default FeedbackItem;

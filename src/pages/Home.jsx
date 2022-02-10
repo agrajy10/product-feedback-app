@@ -1,5 +1,6 @@
 import styled from 'styled-components';
 import { useSelector } from 'react-redux';
+import { motion } from 'framer-motion';
 
 import Container from '../layout/Container';
 import Header from '../components/Header';
@@ -68,6 +69,30 @@ const FeedbackListWrapper = styled.div`
   }
 `;
 
+const MotionFeedbackItem = motion(FeedbackItem, {
+  forwardMotionProps: true
+});
+
+const listContainerVariants = {
+  hidden: { opacity: 0, y: 20 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: {
+      when: 'beforeChildren',
+      staggerChildren: 0.1
+    }
+  }
+};
+
+const listItemVariants = {
+  hidden: { opacity: 0, y: 20 },
+  visible: {
+    opacity: 1,
+    y: 0
+  }
+};
+
 function Home() {
   const { width } = useWindowSize();
   const { isLoading, filteredFeedbackList } = useSelector((state) => state.feedbackList);
@@ -92,9 +117,15 @@ function Home() {
           {isLoading && <p>Loading....</p>}
           {!isLoading && filteredFeedbackList.length == 0 && <NoFeedback />}
           {!isLoading && filteredFeedbackList.length > 0 && (
-            <FeedbackListWrapper>
+            <FeedbackListWrapper
+              as={motion.div}
+              variants={listContainerVariants}
+              initial="hidden"
+              animate="visible">
               {filteredFeedbackList.map(({ id, ...data }) => {
-                return <FeedbackItem key={id} id={id} {...data} />;
+                return (
+                  <MotionFeedbackItem variants={listItemVariants} key={id} id={id} {...data} />
+                );
               })}
             </FeedbackListWrapper>
           )}

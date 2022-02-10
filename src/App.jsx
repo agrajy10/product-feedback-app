@@ -1,11 +1,12 @@
 import 'normalize.css';
 import { useEffect } from 'react';
 import { ThemeProvider } from 'styled-components';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { Routes, Route, useLocation } from 'react-router-dom';
 import 'react-toastify/dist/ReactToastify.css';
 import { useDispatch } from 'react-redux';
 import { onAuthStateChanged } from 'firebase/auth';
 import { collection, query, onSnapshot, orderBy } from 'firebase/firestore';
+import { AnimatePresence } from 'framer-motion';
 
 import Home from './pages/Home';
 import FeedbackDetails from './pages/FeedbackDetails';
@@ -26,6 +27,7 @@ import { setUser } from './features/auth/authSlice';
 import { auth, db } from './firebase-config';
 
 function App() {
+  const location = useLocation();
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -58,7 +60,7 @@ function App() {
     <div className="App">
       <ThemeProvider theme={theme}>
         <GlobalStyle />
-        <Router>
+        <AnimatePresence location={location} key={location.key} exitBeforeEnter>
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/roadmap" element={<Roadmap />} />
@@ -73,7 +75,7 @@ function App() {
             <Route path="/register" element={<Register />} />
             <Route path="/forgot-password" element={<FrogotPassword />} />
           </Routes>
-        </Router>
+        </AnimatePresence>
         <StyledToastcontainer
           autoClose={1500}
           closeButton={false}

@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import { motion } from 'framer-motion';
 
 import breakpoints from '../styles/breakpoints';
 
@@ -20,8 +21,32 @@ const Wrapper = styled.div`
   }
 `;
 
+const containerVariants = {
+  hidden: { y: 100, opacity: 0 },
+  visible: {
+    y: 0,
+    opacity: 1,
+    transition: {
+      type: 'tween'
+    }
+  },
+  exit: {
+    y: 100,
+    opacity: 0
+  }
+};
+
 function Container({ className, children }) {
-  return <Wrapper className={className}>{children}</Wrapper>;
+  return (
+    <Wrapper
+      className={className}
+      as={motion.div}
+      variants={containerVariants}
+      initial="hidden"
+      animate="visible">
+      {children}
+    </Wrapper>
+  );
 }
 
 export default Container;
