@@ -9,6 +9,7 @@ import SortBy from '../components/SortBy';
 import Button from '../components/Button';
 import FeedbackItem from '../components/FeedbackItem';
 import NoFeedback from '../components/NoFeedback';
+import Loader from '../components/Loader';
 
 import useWindowSize from '../hooks/useWindowSize';
 
@@ -114,7 +115,7 @@ function Home() {
           <AddFeedbackButton href="/create-feedback">+ Add Feedback</AddFeedbackButton>
         </SortByWrapper>
         <div aria-live="polite">
-          {isLoading && <p>Loading....</p>}
+          {isLoading && <Loader />}
           {!isLoading && filteredFeedbackList.length == 0 && <NoFeedback />}
           {!isLoading && filteredFeedbackList.length > 0 && (
             <FeedbackListWrapper

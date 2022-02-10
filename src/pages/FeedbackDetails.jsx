@@ -10,6 +10,7 @@ import Button from '../components/Button';
 import FeedbackItem from '../components/FeedbackItem';
 import Comments from '../components/Comments/Comments';
 import CommentForm from '../components/Comments/CommentForm';
+import Loader from '../components/Loader';
 
 const DetailsTop = styled.div`
   display: flex;
@@ -47,7 +48,7 @@ function FeedbackDetails() {
     <Container>
       <main>
         {!feedback ? (
-          <p>Loading..</p>
+          <Loader />
         ) : (
           <>
             <DetailsTop>
