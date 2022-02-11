@@ -43,7 +43,8 @@ function Container({ className, children }) {
       as={motion.div}
       variants={containerVariants}
       initial="hidden"
-      animate="visible">
+      animate="visible"
+      exit="exit">
       {children}
     </Wrapper>
   );

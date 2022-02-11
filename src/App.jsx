@@ -60,8 +60,8 @@ function App() {
     <div className="App">
       <ThemeProvider theme={theme}>
         <GlobalStyle />
-        <AnimatePresence location={location} key={location.key} exitBeforeEnter>
-          <Routes>
+        <AnimatePresence exitBeforeEnter>
+          <Routes location={location} key={location.key}>
             <Route path="/" element={<Home />} />
             <Route path="/roadmap" element={<Roadmap />} />
             <Route path="/feedback/:feedbackID" element={<FeedbackDetails />} />
