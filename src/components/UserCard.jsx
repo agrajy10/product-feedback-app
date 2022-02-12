@@ -7,8 +7,8 @@ import { logoutUser } from '../features/auth/authThunk';
 
 const Wrapper = styled.div`
   background-color: #ffffff;
-  padding: 24px;
-  border-radius: 10px;
+  padding: 1.5rem;
+  border-radius: 0.625rem;
   button {
     width: 100%;
   }
@@ -16,14 +16,14 @@ const Wrapper = styled.div`
     display: block;
   }
   a:not(:last-child) {
-    margin-bottom: 10px;
+    margin-bottom: 0.625rem;
   }
 `;
 
 const UserAvatar = styled.div`
-  width: 60px;
-  height: 60px;
-  margin: 0 auto 10px auto;
+  width: 3.75rem;
+  height: 3.75rem;
+  margin: 0 auto 0.625rem auto;
   border-radius: 50%;
   overflow: hidden;
   img {
@@ -34,7 +34,7 @@ const UserAvatar = styled.div`
 `;
 
 const UserDisplayName = styled.p`
-  font-size: 15px;
+  font-size: 0.9375rem;
   font-weight: 700;
   margin: 0;
   color: ${({ theme }) => theme.color};
@@ -42,9 +42,9 @@ const UserDisplayName = styled.p`
 `;
 
 const UserEmail = styled.p`
-  font-size: 13px;
+  font-size: 0.8125rem;
   text-align: center;
-  margin: 0 0 10px 0;
+  margin: 0 0 0.625rem 0;
   color: ${({ theme }) => theme.color};
 `;
 

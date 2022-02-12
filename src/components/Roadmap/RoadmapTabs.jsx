@@ -10,17 +10,17 @@ const TabList = styled(Tab.List)`
   grid-template-columns: repeat(3, 1fr);
   gap: 0;
   border-bottom: 1px solid rgba(151, 151, 151, 0.25);
-  margin: 0 -24px;
+  margin: 0 -1.5rem;
 `;
 
 const TabButton = styled.button`
   position: relative;
-  font-size: 13px;
+  font-size: 0.8125rem;
   font-weight: 700;
   line-height: 1;
   color: ${({ theme }) => theme.color};
   opacity: ${({ selected }) => (selected ? 1 : 0.4)};
-  padding: 20px 0;
+  padding: 1.25rem 0;
   background: transparent;
   text-align: center;
   cursor: pointer;
@@ -33,7 +33,7 @@ const TabButton = styled.button`
     bottom: -1px;
     left: 0;
     right: 0;
-    height: 4px;
+    height: 0.25rem;
     opacity: ${({ selected }) => (selected ? 1 : 0)};
   }
   &.planned::after {
@@ -48,7 +48,7 @@ const TabButton = styled.button`
 `;
 
 const TabPanel = styled(Tab.Panel)`
-  padding: 24px 0;
+  padding: 1.5rem 0;
 `;
 
 function RoadmapTabs() {

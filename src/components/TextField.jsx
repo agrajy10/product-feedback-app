@@ -6,7 +6,7 @@ const Label = styled.label`
   font-size: 0.875rem;
   line-height: 1;
   font-weight: 700;
-  margin-bottom: 5px;
+  margin-bottom: 0.3125rem;
   letter-spacing: -0.19px;
 `;
 
@@ -36,7 +36,7 @@ const Input = styled.input`
 
 const Error = styled.span`
   display: block;
-  font-size: 14px;
+  font-size: 0.875rem;
   line-height: 2;
   color: ${({ theme }) => theme.textField.error.color};
 `;

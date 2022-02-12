@@ -16,12 +16,12 @@ const Button = styled.button`
   align-items: center;
   justify-content: center;
   gap: 0 10px;
-  font-size: 13px;
+  font-size: 0.8125rem;
   font-weight: 700;
   letter-spacing: -0.13px;
   line-height: 1;
-  padding: 8px 13px;
-  border-radius: 10px;
+  padding: 0.5rem 0.8125rem;
+  border-radius: 0.625rem;
   border: none;
   cursor: pointer;
   user-select: none;
@@ -51,7 +51,7 @@ const Button = styled.button`
   @media (min-width: ${breakpoints.md}px) {
     flex-direction: column;
     gap: 8px;
-    padding: 13px 10px;
+    padding: 0.8125rem 0.625rem;
   }
 `;
 

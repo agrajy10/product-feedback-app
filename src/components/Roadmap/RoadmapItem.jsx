@@ -9,16 +9,16 @@ import IconComments from '../../assets/shared/icon-comments.svg';
 
 const Wrapper = styled.article`
   background-color: ${({ theme }) => theme.feedbackItem.bg};
-  padding: 24px;
-  border-radius: 10px;
+  padding: 1.5rem;
+  border-radius: 0.625rem;
   border-top: 6px solid ${({ theme, status }) => theme.roadmap[status]};
 `;
 
 const Status = styled.p`
   position: relative;
-  font-size: 13px;
-  margin: 0 0 16px 0;
-  padding-left: 16px;
+  font-size: 0.8125rem;
+  margin: 0 0 1rem 0;
+  padding-left: 1rem;
   color: ${({ theme }) => theme.text.color1};
   text-transform: capitalize;
   &::before {
@@ -28,20 +28,20 @@ const Status = styled.p`
     top: 50%;
     transform: translateY(-50%);
     left: 0;
-    width: 8px;
-    height: 8px;
+    width: 0.5rem;
+    height: 0.5rem;
     border-radius: 50%;
     background-color: ${({ theme, status }) => theme.roadmap[status]};
   }
   @media (min-width: ${breakpoints.lg}px) {
-    font-size: 16px;
+    font-size: 1rem;
   }
 `;
 
 const FeedbackTitle = styled.h3`
-  font-size: 13px;
+  font-size: 0.8125rem;
   letter-spacing: -0.18px;
-  margin: 0 0 9px 0;
+  margin: 0 0 0.5625rem 0;
   a {
     color: ${({ theme }) => theme.color};
     text-decoration: none;
@@ -50,32 +50,32 @@ const FeedbackTitle = styled.h3`
     color: #4661e6;
   }
   @media (min-width: ${breakpoints.lg}px) {
-    font-size: 18px;
+    font-size: 1.125rem;
   }
 `;
 
 const FeedbackDesc = styled.p`
-  font-size: 13px;
-  margin: 0 0 12px 0;
+  font-size: 0.8125rem;
+  margin: 0 0 0.75rem 0;
   color: ${({ theme }) => theme.text.color1};
   @media (min-width: ${breakpoints.md}px) {
-    margin: 0 0 24px 0;
+    margin: 0 0 1.5rem 0;
   }
   @media (min-width: ${breakpoints.lg}px) {
-    font-size: 16px;
+    font-size: 1rem;
   }
 `;
 
 const FeedbackCategory = styled.span`
   display: inline-block;
-  font-size: 13px;
+  font-size: 0.8125rem;
   font-weight: 700;
-  padding: 8px 16px;
-  border-radius: 10px;
+  padding: 0.5rem 1rem;
+  border-radius: 0.625rem;
   line-height: 1;
   background-color: ${({ theme }) => theme.category.bg};
   color: ${({ theme }) => theme.category.color};
-  margin-bottom: 16px;
+  margin-bottom: 1rem;
 `;
 
 const Footer = styled.footer`
@@ -89,21 +89,21 @@ const FeedbackUpvoteButton = styled(UpVoteButton)`
   display: inline-flex;
   gap: 0 10px;
   flex-direction: row;
-  padding: 8px 13px;
+  padding: 0.5rem 0.8125rem;
   @media (min-width: ${breakpoints.md}px) {
-    padding: 13px;
+    padding: 0.8125rem;
   }
 `;
 
 const CommentCount = styled.span`
   display: inline-block;
-  padding-left: 26px;
-  font-size: 13px;
+  padding-left: 1.625rem;
+  font-size: 0.8125rem;
   letter-spacing: -0.13px;
   font-weight: 700;
   background: url(${IconComments}) no-repeat left center;
   @media (min-width: ${breakpoints.lg}px) {
-    font-size: 16px;
+    font-size: 1rem;
   }
 `;
 

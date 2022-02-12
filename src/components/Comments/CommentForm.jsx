@@ -13,15 +13,15 @@ import breakpoints from '../../styles/breakpoints';
 
 const FormWrapper = styled.div`
   background-color: ${({ theme }) => theme.white};
-  padding: 24px;
-  border-radius: 10px;
+  padding: 1.5rem;
+  border-radius: 0.625rem;
   h2 {
-    margin: 0 0 24px 0;
+    margin: 0 0 1.5rem 0;
   }
   @media (min-width: ${breakpoints.md}px) {
-    padding: 32px;
+    padding: 2rem;
     h2 {
-      margin-bottom: 32px;
+      margin-bottom: 2rem;
     }
   }
 `;
@@ -34,10 +34,10 @@ const FormBottom = styled.div`
 
 const CharCount = styled.span`
   display: inline-block;
-  font-size: 13px;
+  font-size: 0.8125rem;
   color: ${({ theme }) => theme.text.color1};
   @media (min-width: ${breakpoints.md}px) {
-    font-size: 15px;
+    font-size: 0.9375rem;
   }
 `;
 

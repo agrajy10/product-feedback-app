@@ -9,12 +9,12 @@ const Wrapper = styled.article`
 `;
 
 const CommentBody = styled.p`
-  font-size: 13px;
+  font-size: 0.8125rem;
   color: ${({ theme }) => theme.text.color1};
   margin: 0;
-  padding-left: 56px;
+  padding-left: 3.5rem;
   @media (min-width: ${breakpoints.md}px) {
-    font-size: 15px;
+    font-size: 0.9375rem;
   }
 `;
 

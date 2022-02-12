@@ -14,21 +14,21 @@ const Header = styled.header`
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 16px 24px;
+  padding: 1rem 1.5rem;
   background: url(${headerBg}) no-repeat center;
   background-size: cover;
   color: #ffffff;
-  margin: 0 -24px;
+  margin: 0 -1.5rem;
   z-index: 9899;
 `;
 
 const Logo = styled.h1`
-  font-size: 15px;
+  font-size: 0.9375rem;
   letter-spacing: -0.19px;
   margin: 0;
   span {
     display: block;
-    font-size: 13px;
+    font-size: 0.8125rem;
     font-weight: 500;
     color: rgba(255, 255, 255, 0.75);
   }
@@ -38,8 +38,8 @@ const MenuToggler = styled(Popover.Button)`
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 20px;
-  height: 20px;
+  width: 1.25rem;
+  height: 1.25rem;
   background: transparent;
   border: none;
   cursor: pointer;
@@ -54,12 +54,12 @@ const MenuWrapper = styled(Popover.Panel)`
   width: 100%;
   height: calc(100% - 72px);
   overflow: hidden auto;
-  max-width: 270px;
-  padding: 24px;
+  max-width: 16.875rem;
+  padding: 1.5rem;
   background-color: #f7f8fd;
   z-index: 9830;
   & > div:not(:last-child) {
-    margin-bottom: 24px;
+    margin-bottom: 1.5rem;
   }
 `;
 

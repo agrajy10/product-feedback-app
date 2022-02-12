@@ -16,7 +16,7 @@ const DetailsTop = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 0 0 24px 0;
+  padding: 0 0 1.5rem 0;
 `;
 
 const LoginButtonWrapper = styled.div`

@@ -4,13 +4,13 @@ import breakpoints from '../../styles/breakpoints';
 
 const Wrapper = styled.div`
   position: relative;
-  padding-left: 56px;
-  margin-bottom: 16px;
+  padding-left: 3.5rem;
+  margin-bottom: 1rem;
 `;
 
 const AuthorAvatar = styled.div`
-  width: 40px;
-  height: 40px;
+  width: 2.5rem;
+  height: 2.5rem;
   border-radius: 50%;
   overflow: hidden;
   position: absolute;
@@ -25,10 +25,10 @@ const AuthorAvatar = styled.div`
 `;
 
 const AuthorName = styled.h3`
-  font-size: 13px;
+  font-size: 0.8125rem;
   margin: 0;
   @media (min-width: ${breakpoints.md}px) {
-    font-size: 14px;
+    font-size: 0.875rem;
   }
 `;
 

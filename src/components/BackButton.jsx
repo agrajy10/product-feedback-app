@@ -11,7 +11,7 @@ const Button = styled(Link)`
   justify-content: flex-start;
   gap: 0 15px;
   background: transparent;
-  font-size: 13px;
+  font-size: 0.8125rem;
   font-weight: 700;
   border: none;
   cursor: pointer;
@@ -25,7 +25,7 @@ const Button = styled(Link)`
     text-decoration: underline;
   }
   @media (min-width: ${breakpoints.md}px) {
-    font-size: 14px;
+    font-size: 0.875rem;
   }
 `;
 

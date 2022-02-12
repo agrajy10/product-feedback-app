@@ -16,7 +16,7 @@ const Wrapper = styled.div`
 
 const Label = styled.span`
   flex: 0 0 auto;
-  font-size: 13px;
+  font-size: 0.8125rem;
   color: #f2f4fe;
   white-space: nowrap;
 `;
@@ -26,23 +26,23 @@ const customStyles = {
     ...provided,
     backgroundColor: '#373F68',
     border: 'none',
-    height: '48px',
+    height: '3rem',
     padding: '0',
-    fontSize: '15px',
+    fontSize: '0.9375rem',
     boxShadow: 'none',
     opacity: state.isFocused ? 0.75 : 1
   }),
   singleValue: (provided) => ({
     ...provided,
-    fontSize: '14px',
+    fontSize: '0.875rem',
     color: '#FFFFFF'
   }),
   dropdownIndicator: (provided) => ({
     ...provided,
     color: '#FFFFFF',
     svg: {
-      width: '15px',
-      height: '15px'
+      width: '0.9375rem',
+      height: '0.9375rem'
     },
     '&:hover': {
       color: '#FFFFFF'
@@ -54,10 +54,10 @@ const customStyles = {
   }),
   menu: (provided) => ({
     ...provided,
-    width: '255px',
+    width: '15.9375rem',
     background: '#FFFFFF',
-    borderRadius: '10px',
-    marginTop: '10px',
+    borderRadius: '0.625rem',
+    marginTop: '0.625rem',
     left: '-48px',
     boxShadow: '0px 10px 40px -7px rgba(55, 63, 104, 0.350492)'
   }),
@@ -66,7 +66,7 @@ const customStyles = {
     fontSize: '16px',
     lineHeight: 1,
     borderTop: '1px solid rgba(151,151,151,0.15)',
-    padding: '12px 24px',
+    padding: '0.75rem 1.5rem',
     color: state.isSelected || state.isFocused ? '#AD1FEA' : '#647196',
     backgroundColor: '#FFFFFF',
     backgroundImage: state.isSelected ? `url(${IconCheck})` : '',

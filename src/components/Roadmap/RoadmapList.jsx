@@ -6,30 +6,30 @@ import breakpoints from '../../styles/breakpoints';
 
 const RoadmapListWrapper = styled.div`
   & > article:not(:last-child) {
-    margin-bottom: 16px;
+    margin-bottom: 1rem;
   }
 `;
 
 const Title = styled.h2`
-  font-size: 18px;
-  margin: 0 0 5px 0;
+  font-size: 1.125rem;
+  margin: 0 0 0.3125rem 0;
   @media (min-width: ${breakpoints.md}px) {
-    font-size: 14px;
+    font-size: 0.875rem;
   }
   @media (min-width: ${breakpoints.lg}px) {
-    font-size: 18px;
+    font-size: 1.125rem;
   }
 `;
 
 const Desc = styled.p`
-  font-size: 13px;
+  font-size: 0.8125rem;
   color: ${({ theme }) => theme.text.color1};
-  margin: 0 0 24px 0;
+  margin: 0 0 1.5rem 0;
   @media (min-width: ${breakpoints.md}px) {
-    font-size: 14px;
+    font-size: 0.875rem;
   }
   @media (min-width: ${breakpoints.lg}px) {
-    font-size: 16px;
+    font-size: 1rem;
   }
 `;
 

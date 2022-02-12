@@ -6,7 +6,7 @@ const StyledToastcontainer = styled(ToastContainer)`
   .Toastify__toast {
     font-family: Jost, sans-serif;
     color: ${({ theme }) => theme.color};
-    font-size: 14px;
+    font-size: 0.875rem;
     min-height: 48px;
   }
 `;

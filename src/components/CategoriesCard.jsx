@@ -5,8 +5,8 @@ import { filterFeedbackList } from '../features/feedback/feedbackListSlice';
 
 const Wrapper = styled.div`
   background-color: #ffffff;
-  padding: 24px;
-  border-radius: 10px;
+  padding: 1.5rem;
+  border-radius: 0.625rem;
 `;
 
 const CategoriesList = styled.div`
@@ -30,14 +30,14 @@ const Category = styled.label`
   span {
     display: block;
     text-align: center;
-    font-size: 13px;
+    font-size: 0.8125rem;
     font-weight: 600;
     color: ${({ theme }) => theme.category.color};
     background-color: ${({ theme }) => theme.category.bg};
     white-space: nowrap;
-    padding: 6px 16px;
+    padding: 0.375rem 1rem;
     border: 1px solid ${({ theme }) => theme.category.bg};
-    border-radius: 10px;
+    border-radius: 0.625rem;
     cursor: pointer;
     user-select: none;
   }

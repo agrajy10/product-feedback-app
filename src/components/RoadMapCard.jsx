@@ -4,8 +4,8 @@ import { useSelector } from 'react-redux';
 
 const Wrapper = styled.div`
   background-color: #ffffff;
-  padding: 24px;
-  border-radius: 10px;
+  padding: 1.5rem;
+  border-radius: 0.625rem;
 `;
 
 const HeadingandLink = styled.div`
@@ -21,7 +21,7 @@ const HeadingandLink = styled.div`
 
 const ViewAll = styled(Link)`
   display: inline-block;
-  font-size: 13px;
+  font-size: 0.8125rem;
   font-weight: 600;
   color: #4661e6;
   text-decoration: underline;
@@ -31,22 +31,22 @@ const ViewAll = styled(Link)`
 `;
 
 const RoadMapList = styled.ul`
-  margin: 24px 0 0 0;
+  margin: 1.5rem 0 0 0;
   padding: 0;
   list-style: none;
   line-height: 1;
   li {
     position: relative;
-    padding: 0 22px;
-    font-size: 16px;
+    padding: 0 1.375rem;
+    font-size: 1rem;
     color: ${({ theme }) => theme.text.color1};
-    margin-bottom: 12px;
+    margin-bottom: 0.75rem;
     &::before {
       content: '';
       display: inline-block;
       position: absolute;
-      width: 8px;
-      height: 8px;
+      width: 0.5rem;
+      height: 0.5rem;
       top: 50%;
       left: 0;
       transform: translateY(-50%);

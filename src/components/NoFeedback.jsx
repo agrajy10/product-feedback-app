@@ -9,26 +9,26 @@ import IllustrationEmpty from '../assets/suggestions/illustration-empty.svg';
 
 const Wrapper = styled.div`
   background-color: ${({ theme }) => theme.white};
-  padding: 76px 25px;
-  border-radius: 10px;
+  padding: 4.75rem 1.5625rem;
+  border-radius: 0.625rem;
   text-align: center;
   img {
     width: 100%;
-    max-width: 129px;
-    margin-bottom: 29px;
+    max-width: 8.0625rem;
+    margin-bottom: 1.8125rem;
   }
   .h3 {
     @media (min-width: ${breakpoints.md}px) {
-      font-size: 24px;
+      font-size: 1.5rem;
     }
   }
   p {
-    max-width: 410px;
-    font-size: 13px;
-    margin: 0 auto 24px auto;
+    max-width: 25.625rem;
+    font-size: 0.8125rem;
+    margin: 0 auto 1.5rem auto;
     @media (min-width: ${breakpoints.md}px) {
-      font-size: 16px;
-      margin-bottom: 48px;
+      font-size: 1rem;
+      margin-bottom: 3rem;
     }
   }
 `;

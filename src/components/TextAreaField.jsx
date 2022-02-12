@@ -6,7 +6,7 @@ const Label = styled.label`
   font-size: 0.875rem;
   line-height: 1;
   font-weight: 700;
-  margin-bottom: 5px;
+  margin-bottom: 0.3125rem;
   letter-spacing: -0.19px;
 `;
 
@@ -19,8 +19,8 @@ const LabelDesc = styled.p`
 const TextArea = styled.textarea`
   width: 100%;
   height: ${({ height }) => height}px;
-  padding: 16px 24px;
-  border-radius: 5px;
+  padding: 1rem 1.5rem;
+  border-radius: 0.3125rem;
   background-color: ${({ theme }) => theme.textField.bg};
   color: ${({ theme }) => theme.textField.color};
   border: 1px solid
@@ -40,7 +40,7 @@ const TextArea = styled.textarea`
 
 const Error = styled.span`
   display: block;
-  font-size: 14px;
+  font-size: 0.875rem;
   line-height: 2;
   color: ${({ theme }) => theme.textField.error.color};
 `;

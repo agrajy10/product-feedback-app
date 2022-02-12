@@ -13,36 +13,36 @@ import breakpoints from '../styles/breakpoints';
 const RoadmapContainer = styled(Container)`
   padding-top: 0;
   @media (min-width: ${breakpoints.md}px) {
-    padding-top: 56px;
+    padding-top: 3.5rem;
   }
   @media (min-width: ${breakpoints.lg}px) {
-    padding-top: 78px;
+    padding-top: 4.875rem;
   }
 `;
 
 const Header = styled.header`
   background-color: #373f68;
-  padding: 24px;
+  padding: 1.5rem;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  margin: 0 -24px;
+  margin: 0 -1.5rem;
   @media (min-width: ${breakpoints.md}px) {
-    padding: 32px;
-    margin: 0 0 32px 0;
-    border-radius: 10px;
+    padding: 2rem;
+    margin: 0 0 2rem 0;
+    border-radius: 0.625rem;
   }
   @media (min-width: ${breakpoints.lg}px) {
-    margin: 0 0 48px 0;
+    margin: 0 0 3rem 0;
   }
 `;
 
 const Heading = styled.h1`
   margin: 0;
-  font-size: 18px;
+  font-size: 1.125rem;
   color: #fff;
   @media (min-width: ${breakpoints.md}px) {
-    font-size: 24px;
+    font-size: 1.5rem;
   }
 `;
 
