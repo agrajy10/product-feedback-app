@@ -61,14 +61,12 @@ function App() {
       <ThemeProvider theme={theme}>
         <GlobalStyle />
         <AnimatePresence exitBeforeEnter>
-          <Routes location={location} key={location.key}>
+          <Routes location={location} key={location.pathname}>
             <Route path="/" element={<Home />} />
             <Route path="/roadmap" element={<Roadmap />} />
             <Route path="/feedback/:feedbackID" element={<FeedbackDetails />} />
-            <Route path="/create-feedback" element={<PrivateRoute />}>
+            <Route element={<PrivateRoute />}>
               <Route path="/create-feedback" element={<CreateFeedback />} />
-            </Route>
-            <Route path="/edit-feedback/:feedbackID" element={<PrivateRoute />}>
               <Route path="/edit-feedback/:feedbackID" element={<EditFeedback />} />
             </Route>
             <Route path="/login" element={<Login />} />
